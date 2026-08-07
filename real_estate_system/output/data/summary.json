@@ -1,0 +1,19 @@
+{
+  "analysis_date": "2025-11-02 13:32:19",
+  "basic_statistics": {
+    "total_properties": 200,
+    "average_price": 2.34,
+    "cities_covered": 7,
+    "property_types": {
+      "Plot": 62,
+      "Apartment": 53,
+      "Villa": 44,
+      "Commercial": 41
+    }
+  },
+  "price_ranges": {
+    "min_price": 0.42,
+    "max_price": 7.73,
+    "avg_price": 2.3432999999999997
+  }
+}

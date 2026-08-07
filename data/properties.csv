@@ -1,0 +1,101 @@
+Property ID,State,City,Area (sqft),Bedrooms,Price (₹),Type,Furnishing,Year Built
+P001,Maharashtra,Ahmedabad,771,2,59 L,Apartment,Furnished,2012
+P002,Uttar Pradesh,Ahmedabad,2106,2,76 L,Penthouse,Semi-Furnished,2021
+P003,Tamil Nadu,Mumbai,2190,4,64 L,Penthouse,Furnished,2010
+P004,Maharashtra,Ahmedabad,2470,1,2.1 Cr,Villa,Furnished,2015
+P005,Maharashtra,Chennai,833,4,2.3 Cr,Apartment,Semi-Furnished,2014
+P006,Uttar Pradesh,Bangalore,1925,4,0.6 Cr,Flat,Furnished,2020
+P007,Maharashtra,Bangalore,1303,3,52 L,Penthouse,Furnished,2013
+P008,Maharashtra,Chennai,528,1,1.5 Cr,Flat,Semi-Furnished,2015
+P009,Tamil Nadu,Hyderabad,1026,2,0.7 Cr,Villa,Semi-Furnished,2011
+P010,Gujarat,Chennai,2470,4,1.6 Cr,Villa,Semi-Furnished,2021
+P011,Maharashtra,Hyderabad,549,1,53 L,Penthouse,Furnished,2014
+P012,Maharashtra,Delhi,1896,1,1.9 Cr,Villa,Furnished,2014
+P013,Gujarat,Bangalore,1393,3,81 L,Villa,Furnished,2021
+P014,Delhi,Bangalore,1659,4,1.7 Cr,Apartment,Unfurnished,2019
+P015,Maharashtra,Pune,2575,2,1.2 Cr,Apartment,Semi-Furnished,2013
+P016,Gujarat,Ahmedabad,2940,1,71 L,Apartment,Unfurnished,2014
+P017,Delhi,Mumbai,2092,4,0.7 Cr,Penthouse,Semi-Furnished,2023
+P018,Gujarat,Mumbai,705,2,0.6 Cr,Apartment,Unfurnished,2023
+P019,Delhi,Lucknow,728,3,1.8 Cr,Apartment,Semi-Furnished,2016
+P020,Tamil Nadu,Hyderabad,514,4,2.0 Cr,Penthouse,Unfurnished,2022
+P021,Uttar Pradesh,Bangalore,637,1,52 L,Apartment,Unfurnished,2020
+P022,Gujarat,Hyderabad,2889,1,2.2 Cr,Villa,Unfurnished,2015
+P023,Gujarat,Pune,850,3,1.6 Cr,Penthouse,Semi-Furnished,2012
+P024,Tamil Nadu,Pune,676,1,68 L,Penthouse,Semi-Furnished,2023
+P025,Karnataka,Mumbai,1895,4,1.4 Cr,Flat,Semi-Furnished,2022
+P026,Tamil Nadu,Pune,645,2,1.4 Cr,Villa,Unfurnished,2011
+P027,Karnataka,Bangalore,1141,4,0.5 Cr,Flat,Semi-Furnished,2011
+P028,Uttar Pradesh,Chennai,681,2,1.2 Cr,Apartment,Unfurnished,2021
+P029,Tamil Nadu,Delhi,1020,1,1.8 Cr,Flat,Unfurnished,2012
+P030,Tamil Nadu,Lucknow,1230,2,1.5 Cr,Penthouse,Furnished,2017
+P031,Maharashtra,Hyderabad,2310,4,59 L,Flat,Semi-Furnished,2022
+P032,Gujarat,Lucknow,1210,3,74 L,Flat,Semi-Furnished,2014
+P033,Delhi,Pune,2321,2,1.2 Cr,Flat,Semi-Furnished,2022
+P034,Delhi,Lucknow,1080,3,1.5 Cr,Flat,Furnished,2011
+P035,Uttar Pradesh,Chennai,2535,1,0.7 Cr,Villa,Furnished,2010
+P036,Uttar Pradesh,Bangalore,1784,1,2.3 Cr,Villa,Semi-Furnished,2014
+P037,Uttar Pradesh,Delhi,2464,3,0.5 Cr,Apartment,Furnished,2015
+P038,Maharashtra,Delhi,1026,4,1.5 Cr,Penthouse,Unfurnished,2014
+P039,Gujarat,Bangalore,1970,1,86 L,Flat,Unfurnished,2014
+P040,Uttar Pradesh,Pune,1751,3,2.0 Cr,Flat,Unfurnished,2023
+P041,Tamil Nadu,Mumbai,2710,1,2.1 Cr,Villa,Furnished,2010
+P042,Delhi,Chennai,2337,4,1.1 Cr,Apartment,Unfurnished,2019
+P043,Tamil Nadu,Ahmedabad,561,3,0.8 Cr,Villa,Furnished,2019
+P044,Karnataka,Bangalore,1845,2,0.7 Cr,Penthouse,Furnished,2012
+P045,Maharashtra,Ahmedabad,2505,3,1.9 Cr,Penthouse,Semi-Furnished,2021
+P046,Gujarat,Delhi,1064,1,1.8 Cr,Villa,Furnished,2014
+P047,Karnataka,Chennai,2132,2,2.5 Cr,Flat,Furnished,2011
+P048,Tamil Nadu,Mumbai,2774,3,2.2 Cr,Villa,Unfurnished,2016
+P049,Tamil Nadu,Hyderabad,1767,1,83 L,Flat,Unfurnished,2019
+P050,Delhi,Ahmedabad,1505,2,0.9 Cr,Flat,Semi-Furnished,2014
+P051,Tamil Nadu,Delhi,1658,3,2.2 Cr,Penthouse,Semi-Furnished,2023
+P052,Delhi,Chennai,630,4,83 L,Apartment,Semi-Furnished,2022
+P053,Delhi,Pune,822,3,0.8 Cr,Flat,Unfurnished,2010
+P054,Karnataka,Chennai,2703,3,0.6 Cr,Flat,Semi-Furnished,2016
+P055,Uttar Pradesh,Pune,1177,4,1.2 Cr,Apartment,Unfurnished,2023
+P056,Maharashtra,Delhi,908,3,56 L,Villa,Furnished,2011
+P057,Karnataka,Chennai,1988,3,0.7 Cr,Penthouse,Unfurnished,2023
+P058,Maharashtra,Ahmedabad,702,4,2.0 Cr,Penthouse,Unfurnished,2021
+P059,Karnataka,Mumbai,2514,1,80 L,Flat,Furnished,2010
+P060,Delhi,Pune,1652,2,86 L,Penthouse,Unfurnished,2013
+P061,Karnataka,Chennai,1346,2,1.2 Cr,Penthouse,Furnished,2019
+P062,Maharashtra,Bangalore,1328,4,2.2 Cr,Apartment,Semi-Furnished,2020
+P063,Maharashtra,Hyderabad,1441,1,1.6 Cr,Villa,Semi-Furnished,2012
+P064,Karnataka,Lucknow,1260,4,81 L,Apartment,Furnished,2019
+P065,Karnataka,Chennai,1565,4,2.3 Cr,Apartment,Semi-Furnished,2012
+P066,Uttar Pradesh,Ahmedabad,1098,3,0.8 Cr,Apartment,Furnished,2014
+P067,Karnataka,Delhi,1700,4,0.8 Cr,Penthouse,Unfurnished,2021
+P068,Uttar Pradesh,Chennai,1400,2,2.3 Cr,Flat,Unfurnished,2023
+P069,Maharashtra,Chennai,2811,1,56 L,Penthouse,Semi-Furnished,2016
+P070,Uttar Pradesh,Bangalore,837,2,1.2 Cr,Flat,Furnished,2023
+P071,Tamil Nadu,Lucknow,621,4,2.5 Cr,Apartment,Furnished,2023
+P072,Karnataka,Lucknow,1288,2,55 L,Apartment,Furnished,2020
+P073,Delhi,Chennai,2934,2,1.0 Cr,Flat,Furnished,2018
+P074,Tamil Nadu,Bangalore,809,1,1.5 Cr,Villa,Semi-Furnished,2020
+P075,Delhi,Ahmedabad,984,4,1.4 Cr,Apartment,Unfurnished,2020
+P076,Uttar Pradesh,Ahmedabad,1487,3,0.6 Cr,Flat,Semi-Furnished,2020
+P077,Uttar Pradesh,Bangalore,2266,1,1.8 Cr,Flat,Unfurnished,2016
+P078,Karnataka,Lucknow,2939,4,1.2 Cr,Apartment,Unfurnished,2022
+P079,Tamil Nadu,Hyderabad,2542,3,66 L,Villa,Furnished,2021
+P080,Gujarat,Ahmedabad,1335,3,1.3 Cr,Villa,Furnished,2014
+P081,Gujarat,Bangalore,756,4,52 L,Penthouse,Unfurnished,2017
+P082,Tamil Nadu,Lucknow,2417,4,0.6 Cr,Flat,Furnished,2013
+P083,Delhi,Hyderabad,2334,1,81 L,Flat,Furnished,2010
+P084,Delhi,Mumbai,658,1,1.7 Cr,Apartment,Unfurnished,2019
+P085,Karnataka,Hyderabad,2542,4,2.4 Cr,Villa,Unfurnished,2018
+P086,Gujarat,Ahmedabad,2023,3,88 L,Apartment,Unfurnished,2021
+P087,Uttar Pradesh,Mumbai,2743,1,1.2 Cr,Apartment,Furnished,2021
+P088,Tamil Nadu,Lucknow,2233,2,1.1 Cr,Penthouse,Furnished,2010
+P089,Gujarat,Bangalore,1982,2,1.1 Cr,Villa,Furnished,2021
+P090,Delhi,Bangalore,1685,1,0.7 Cr,Penthouse,Unfurnished,2016
+P091,Uttar Pradesh,Pune,2815,2,56 L,Apartment,Semi-Furnished,2012
+P092,Karnataka,Lucknow,2540,1,1.2 Cr,Villa,Unfurnished,2017
+P093,Delhi,Mumbai,550,1,68 L,Flat,Semi-Furnished,2013
+P094,Karnataka,Bangalore,1351,3,83 L,Apartment,Furnished,2020
+P095,Maharashtra,Delhi,1674,3,0.9 Cr,Apartment,Semi-Furnished,2012
+P096,Maharashtra,Delhi,2856,4,58 L,Penthouse,Furnished,2016
+P097,Delhi,Pune,2240,2,1.0 Cr,Villa,Semi-Furnished,2021
+P098,Maharashtra,Pune,2021,1,0.8 Cr,Flat,Semi-Furnished,2020
+P099,Uttar Pradesh,Chennai,1588,4,1.6 Cr,Villa,Semi-Furnished,2022
+P100,Maharashtra,Lucknow,2864,3,0.6 Cr,Flat,Furnished,2010

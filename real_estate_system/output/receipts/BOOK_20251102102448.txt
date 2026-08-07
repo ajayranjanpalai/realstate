@@ -1,0 +1,30 @@
+
+            REALESTATE INDIA - BOOKING RECEIPT
+            ==================================
+            
+            Booking ID: BOOK_20251102102448
+            Date: 2025-11-02 10:24:48
+            
+            PROPERTY DETAILS:
+            ----------------
+            Title: Commercial BHK Villa in Whitefield
+            Location: Whitefield, Bangalore
+            Type: Villa
+            BHK: N/A
+            Area: 1420 sqft
+            Furnishing: Semi Furnished
+            
+            PRICING:
+            --------
+            Total Price: Rs.0.89 Crores
+            Advance Amount: Rs.0.09 Crores
+            Balance Amount: Rs.0.8 Crores
+            
+            CUSTOMER DETAILS:
+            -----------------
+            Name: C:\Users\palai\AppData\Local\Programs\Python\Python313\python.exe "c:/Users/palai/OneDrive/Desktop/pythonPro/python peoject/real/real_estate_backend.py"
+            Email: palai@gmail.com
+            Phone: 7847808553
+            
+            Thank you for choosing RealEstate India!
+            

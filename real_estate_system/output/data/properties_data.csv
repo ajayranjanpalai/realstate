@@ -1,0 +1,201 @@
+PropertyID,Title,City,Locality,Type,Price_Cr,Area_sqft,BHK,Price_per_sqft,Furnishing,TransactionType,ListedDate,Available
+PROP_0001,Commercial BHK Plot in Gachibowli,Hyderabad,Gachibowli,Plot,2.36,2334,0,10111,Unfurnished,Resale,2024-12-12,True
+PROP_0002,1 BHK Apartment in Gachibowli,Hyderabad,Gachibowli,Apartment,2.87,1909,1,15034,Semi Furnished,New Booking,2025-09-07,True
+PROP_0003,Commercial BHK Plot in Rajarhat,Kolkata,Rajarhat,Plot,1.61,2516,0,6399,Unfurnished,Resale,2024-12-23,True
+PROP_0004,Commercial BHK Commercial in Anna Nagar,Chennai,Anna Nagar,Commercial,2.38,2865,0,8307,Fully Furnished,Resale,2025-02-21,True
+PROP_0005,Commercial BHK Commercial in Connaught Place,Delhi,Connaught Place,Commercial,3.63,2999,0,12104,Semi Furnished,New Booking,2025-07-15,True
+PROP_0006,3 BHK Apartment in Velachery,Chennai,Velachery,Apartment,1.39,1954,3,7114,Semi Furnished,Resale,2025-01-31,True
+PROP_0007,Commercial BHK Commercial in Banjara Hills,Hyderabad,Banjara Hills,Commercial,2.55,1472,0,17323,Fully Furnished,New Booking,2025-05-25,True
+PROP_0008,Commercial BHK Commercial in HSR Layout,Bangalore,HSR Layout,Commercial,1.4,1015,0,13793,Fully Furnished,Resale,2025-06-29,True
+PROP_0009,Commercial BHK Villa in Kothrud,Pune,Kothrud,Villa,1.85,3325,0,5564,Unfurnished,New Booking,2025-01-08,True
+PROP_0010,4 BHK Apartment in OMR,Chennai,OMR,Apartment,2.55,1367,4,18654,Semi Furnished,New Booking,2024-11-19,True
+PROP_0011,Commercial BHK Villa in Hitech City,Hyderabad,Hitech City,Villa,2.05,3493,0,5869,Semi Furnished,Resale,2025-07-07,True
+PROP_0012,3 BHK Apartment in Indiranagar,Bangalore,Indiranagar,Apartment,0.86,1977,3,4350,Semi Furnished,New Booking,2025-10-02,True
+PROP_0013,1 BHK Apartment in Dwarka,Delhi,Dwarka,Apartment,4.0,1736,1,23041,Semi Furnished,Resale,2025-10-30,True
+PROP_0014,1 BHK Apartment in Worli,Mumbai,Worli,Apartment,6.4,604,1,105960,Unfurnished,Resale,2025-05-22,True
+PROP_0015,3 BHK Apartment in Dwarka,Delhi,Dwarka,Apartment,4.73,1365,3,34652,Unfurnished,Resale,2025-04-14,True
+PROP_0016,2 BHK Apartment in Vasant Kunj,Delhi,Vasant Kunj,Apartment,1.11,1624,2,6835,Fully Furnished,New Booking,2025-05-25,True
+PROP_0017,Commercial BHK Commercial in Banjara Hills,Hyderabad,Banjara Hills,Commercial,2.92,2318,0,12597,Fully Furnished,Resale,2025-07-24,True
+PROP_0018,Commercial BHK Villa in T Nagar,Chennai,T Nagar,Villa,1.56,2279,0,6845,Unfurnished,Resale,2025-07-22,True
+PROP_0019,Commercial BHK Villa in Bandra,Mumbai,Bandra,Villa,3.96,1814,0,21830,Unfurnished,New Booking,2025-07-16,True
+PROP_0020,3 BHK Apartment in Whitefield,Bangalore,Whitefield,Apartment,2.96,1687,3,17546,Fully Furnished,New Booking,2025-02-14,True
+PROP_0021,Commercial BHK Villa in Juhu,Mumbai,Juhu,Villa,3.44,3840,0,8958,Unfurnished,New Booking,2025-07-25,True
+PROP_0022,Commercial BHK Plot in Hitech City,Hyderabad,Hitech City,Plot,2.36,4550,0,5187,Unfurnished,New Booking,2025-03-18,True
+PROP_0023,Commercial BHK Commercial in Hitech City,Hyderabad,Hitech City,Commercial,1.51,620,0,24355,Semi Furnished,New Booking,2025-02-04,True
+PROP_0024,3 BHK Apartment in T Nagar,Chennai,T Nagar,Apartment,2.74,736,3,37228,Semi Furnished,New Booking,2025-08-28,True
+PROP_0025,Commercial BHK Villa in Park Street,Kolkata,Park Street,Villa,0.48,1969,0,2438,Fully Furnished,Resale,2025-02-24,True
+PROP_0026,Commercial BHK Plot in Madhapur,Hyderabad,Madhapur,Plot,2.2,4228,0,5203,Semi Furnished,New Booking,2025-10-28,True
+PROP_0027,Commercial BHK Commercial in Banjara Hills,Hyderabad,Banjara Hills,Commercial,3.37,2510,0,13426,Unfurnished,New Booking,2025-05-07,True
+PROP_0028,Commercial BHK Plot in Dwarka,Delhi,Dwarka,Plot,3.35,3338,0,10036,Fully Furnished,Resale,2025-08-31,True
+PROP_0029,4 BHK Apartment in Connaught Place,Delhi,Connaught Place,Apartment,3.75,1137,4,32982,Fully Furnished,Resale,2025-02-10,True
+PROP_0030,Commercial BHK Plot in Kothrud,Pune,Kothrud,Plot,2.12,3345,0,6338,Unfurnished,New Booking,2024-11-18,True
+PROP_0031,Commercial BHK Villa in Saket,Delhi,Saket,Villa,3.98,1836,0,21678,Fully Furnished,New Booking,2025-08-27,True
+PROP_0032,Commercial BHK Plot in Madhapur,Hyderabad,Madhapur,Plot,1.29,3880,0,3325,Semi Furnished,Resale,2025-03-16,True
+PROP_0033,Commercial BHK Plot in Howrah,Kolkata,Howrah,Plot,0.46,3867,0,1190,Unfurnished,New Booking,2024-11-11,True
+PROP_0034,Commercial BHK Villa in Viman Nagar,Pune,Viman Nagar,Villa,1.31,3073,0,4263,Fully Furnished,Resale,2025-06-09,True
+PROP_0035,Commercial BHK Plot in Connaught Place,Delhi,Connaught Place,Plot,3.58,2362,0,15157,Fully Furnished,Resale,2025-04-23,True
+PROP_0036,Commercial BHK Villa in Whitefield,Bangalore,Whitefield,Villa,2.18,1665,0,13093,Fully Furnished,Resale,2025-09-27,True
+PROP_0037,Commercial BHK Plot in Rajarhat,Kolkata,Rajarhat,Plot,1.26,1117,0,11280,Fully Furnished,New Booking,2025-04-01,True
+PROP_0038,Commercial BHK Plot in Baner,Pune,Baner,Plot,2.42,4486,0,5395,Fully Furnished,Resale,2025-02-07,True
+PROP_0039,Commercial BHK Plot in Hinjewadi,Pune,Hinjewadi,Plot,0.76,1972,0,3854,Semi Furnished,Resale,2025-10-05,True
+PROP_0040,Commercial BHK Plot in Juhu,Mumbai,Juhu,Plot,4.44,2307,0,19246,Fully Furnished,Resale,2024-12-03,True
+PROP_0041,Commercial BHK Plot in Vasant Kunj,Delhi,Vasant Kunj,Plot,4.02,4214,0,9540,Unfurnished,Resale,2025-09-10,True
+PROP_0042,Commercial BHK Plot in Park Street,Kolkata,Park Street,Plot,1.23,1953,0,6298,Fully Furnished,Resale,2025-01-28,True
+PROP_0043,Commercial BHK Commercial in Adyar,Chennai,Adyar,Commercial,2.49,658,0,37842,Semi Furnished,New Booking,2025-08-04,True
+PROP_0044,4 BHK Apartment in Vasant Kunj,Delhi,Vasant Kunj,Apartment,3.42,1967,4,17387,Semi Furnished,Resale,2024-11-24,True
+PROP_0045,Commercial BHK Commercial in Andheri,Mumbai,Andheri,Commercial,6.77,1509,0,44864,Fully Furnished,Resale,2024-12-29,True
+PROP_0046,3 BHK Apartment in HSR Layout,Bangalore,HSR Layout,Apartment,2.38,1531,3,15545,Fully Furnished,New Booking,2025-10-12,True
+PROP_0047,Commercial BHK Villa in Howrah,Kolkata,Howrah,Villa,1.21,3702,0,3269,Unfurnished,Resale,2025-07-27,True
+PROP_0048,Commercial BHK Villa in Dwarka,Delhi,Dwarka,Villa,4.37,1726,0,25319,Fully Furnished,Resale,2024-11-18,True
+PROP_0049,Commercial BHK Plot in Hitech City,Hyderabad,Hitech City,Plot,2.49,1978,0,12588,Unfurnished,New Booking,2025-03-01,True
+PROP_0050,Commercial BHK Plot in Velachery,Chennai,Velachery,Plot,2.38,3297,0,7219,Unfurnished,Resale,2025-04-28,True
+PROP_0051,Commercial BHK Commercial in Anna Nagar,Chennai,Anna Nagar,Commercial,1.81,1638,0,11050,Unfurnished,New Booking,2025-04-18,True
+PROP_0052,Commercial BHK Villa in Dwarka,Delhi,Dwarka,Villa,4.2,2694,0,15590,Semi Furnished,New Booking,2025-03-19,True
+PROP_0053,1 BHK Apartment in Howrah,Kolkata,Howrah,Apartment,0.85,1569,1,5417,Semi Furnished,Resale,2025-05-19,True
+PROP_0054,Commercial BHK Villa in Viman Nagar,Pune,Viman Nagar,Villa,0.92,2837,0,3243,Semi Furnished,Resale,2024-12-27,True
+PROP_0055,Commercial BHK Plot in Rohini,Delhi,Rohini,Plot,2.1,2858,0,7348,Fully Furnished,New Booking,2025-03-09,True
+PROP_0056,Commercial BHK Villa in Rohini,Delhi,Rohini,Villa,2.29,1528,0,14987,Unfurnished,Resale,2025-09-14,True
+PROP_0057,Commercial BHK Plot in Indiranagar,Bangalore,Indiranagar,Plot,3.43,2616,0,13112,Unfurnished,Resale,2024-12-20,True
+PROP_0058,Commercial BHK Plot in OMR,Chennai,OMR,Plot,2.97,3948,0,7523,Fully Furnished,Resale,2024-12-16,True
+PROP_0059,1 BHK Apartment in Velachery,Chennai,Velachery,Apartment,1.63,1938,1,8411,Semi Furnished,Resale,2025-09-07,True
+PROP_0060,Commercial BHK Commercial in Park Street,Kolkata,Park Street,Commercial,0.83,2067,0,4015,Semi Furnished,New Booking,2025-01-27,True
+PROP_0061,Commercial BHK Plot in Jubilee Hills,Hyderabad,Jubilee Hills,Plot,1.13,4255,0,2656,Unfurnished,Resale,2025-04-22,True
+PROP_0062,Commercial BHK Plot in HSR Layout,Bangalore,HSR Layout,Plot,3.43,1805,0,19003,Unfurnished,New Booking,2025-08-27,True
+PROP_0063,Commercial BHK Plot in Saket,Delhi,Saket,Plot,2.08,4022,0,5172,Semi Furnished,Resale,2025-01-28,True
+PROP_0064,2 BHK Apartment in Kharadi,Pune,Kharadi,Apartment,0.94,1949,2,4823,Unfurnished,Resale,2025-06-13,True
+PROP_0065,Commercial BHK Villa in Hinjewadi,Pune,Hinjewadi,Villa,1.38,3388,0,4073,Semi Furnished,Resale,2024-11-12,True
+PROP_0066,Commercial BHK Commercial in Dwarka,Delhi,Dwarka,Commercial,4.7,2231,0,21067,Unfurnished,Resale,2025-03-09,True
+PROP_0067,2 BHK Apartment in Anna Nagar,Chennai,Anna Nagar,Apartment,2.89,1633,2,17697,Unfurnished,New Booking,2025-05-08,True
+PROP_0068,Commercial BHK Plot in Anna Nagar,Chennai,Anna Nagar,Plot,1.28,1817,0,7045,Semi Furnished,Resale,2025-05-26,True
+PROP_0069,Commercial BHK Commercial in Hinjewadi,Pune,Hinjewadi,Commercial,0.88,2611,0,3370,Semi Furnished,Resale,2024-12-17,True
+PROP_0070,3 BHK Apartment in New Town,Kolkata,New Town,Apartment,1.99,1345,3,14796,Unfurnished,New Booking,2024-12-04,True
+PROP_0071,Commercial BHK Plot in Kharadi,Pune,Kharadi,Plot,1.9,4582,0,4147,Unfurnished,Resale,2025-05-20,True
+PROP_0072,Commercial BHK Plot in Gachibowli,Hyderabad,Gachibowli,Plot,0.99,4777,0,2072,Fully Furnished,Resale,2025-03-01,True
+PROP_0073,Commercial BHK Plot in Bandra,Mumbai,Bandra,Plot,1.93,2274,0,8487,Unfurnished,Resale,2025-01-11,True
+PROP_0074,Commercial BHK Villa in Vasant Kunj,Delhi,Vasant Kunj,Villa,1.54,3458,0,4453,Semi Furnished,Resale,2025-03-27,True
+PROP_0075,4 BHK Apartment in Banjara Hills,Hyderabad,Banjara Hills,Apartment,0.95,614,4,15472,Semi Furnished,Resale,2024-12-31,True
+PROP_0076,Commercial BHK Plot in HSR Layout,Bangalore,HSR Layout,Plot,1.52,4691,0,3240,Fully Furnished,Resale,2025-04-16,True
+PROP_0077,Commercial BHK Villa in Banjara Hills,Hyderabad,Banjara Hills,Villa,1.89,2270,0,8326,Unfurnished,Resale,2025-03-29,True
+PROP_0078,Commercial BHK Commercial in Viman Nagar,Pune,Viman Nagar,Commercial,2.4,1864,0,12876,Unfurnished,New Booking,2024-12-29,True
+PROP_0079,Commercial BHK Commercial in Hitech City,Hyderabad,Hitech City,Commercial,2.4,1032,0,23256,Unfurnished,New Booking,2025-09-17,True
+PROP_0080,Commercial BHK Commercial in OMR,Chennai,OMR,Commercial,1.91,1719,0,11111,Fully Furnished,New Booking,2025-04-26,True
+PROP_0081,2 BHK Apartment in Park Street,Kolkata,Park Street,Apartment,0.84,685,2,12263,Fully Furnished,Resale,2025-09-14,True
+PROP_0082,Commercial BHK Villa in Dwarka,Delhi,Dwarka,Villa,4.53,2156,0,21011,Fully Furnished,Resale,2025-06-23,True
+PROP_0083,Commercial BHK Villa in Park Street,Kolkata,Park Street,Villa,0.7,1668,0,4197,Semi Furnished,New Booking,2025-06-18,True
+PROP_0084,Commercial BHK Plot in Kothrud,Pune,Kothrud,Plot,0.71,4502,0,1577,Semi Furnished,New Booking,2024-12-21,True
+PROP_0085,Commercial BHK Commercial in Rohini,Delhi,Rohini,Commercial,2.02,1699,0,11889,Semi Furnished,Resale,2025-02-18,True
+PROP_0086,Commercial BHK Plot in Banjara Hills,Hyderabad,Banjara Hills,Plot,3.43,3268,0,10496,Fully Furnished,Resale,2025-09-16,True
+PROP_0087,Commercial BHK Plot in Koramangala,Bangalore,Koramangala,Plot,1.93,2811,0,6866,Fully Furnished,New Booking,2024-11-12,True
+PROP_0088,1 BHK Apartment in Madhapur,Hyderabad,Madhapur,Apartment,0.82,605,1,13554,Semi Furnished,New Booking,2024-12-16,True
+PROP_0089,Commercial BHK Villa in Indiranagar,Bangalore,Indiranagar,Villa,2.91,2357,0,12346,Unfurnished,New Booking,2025-02-01,True
+PROP_0090,Commercial BHK Plot in Kharadi,Pune,Kharadi,Plot,0.98,1850,0,5297,Unfurnished,Resale,2025-05-12,True
+PROP_0091,Commercial BHK Commercial in Velachery,Chennai,Velachery,Commercial,1.04,632,0,16456,Unfurnished,Resale,2024-11-30,True
+PROP_0092,3 BHK Apartment in T Nagar,Chennai,T Nagar,Apartment,1.38,1783,3,7740,Unfurnished,Resale,2025-04-02,True
+PROP_0093,Commercial BHK Commercial in Madhapur,Hyderabad,Madhapur,Commercial,1.14,1729,0,6593,Unfurnished,New Booking,2025-07-15,True
+PROP_0094,Commercial BHK Plot in Banjara Hills,Hyderabad,Banjara Hills,Plot,1.63,4314,0,3778,Semi Furnished,New Booking,2025-04-09,True
+PROP_0095,4 BHK Apartment in Hitech City,Hyderabad,Hitech City,Apartment,2.49,675,4,36889,Fully Furnished,Resale,2025-04-05,True
+PROP_0096,Commercial BHK Plot in Howrah,Kolkata,Howrah,Plot,0.6,4413,0,1360,Unfurnished,Resale,2024-12-02,True
+PROP_0097,Commercial BHK Plot in Jubilee Hills,Hyderabad,Jubilee Hills,Plot,1.19,4691,0,2537,Unfurnished,New Booking,2025-03-15,True
+PROP_0098,Commercial BHK Villa in Electronic City,Bangalore,Electronic City,Villa,1.6,2304,0,6944,Unfurnished,New Booking,2025-08-07,True
+PROP_0099,Commercial BHK Commercial in Koramangala,Bangalore,Koramangala,Commercial,1.0,1233,0,8110,Unfurnished,New Booking,2025-09-14,True
+PROP_0100,4 BHK Apartment in Andheri,Mumbai,Andheri,Apartment,6.84,1122,4,60963,Unfurnished,New Booking,2024-12-16,True
+PROP_0101,Commercial BHK Villa in Saket,Delhi,Saket,Villa,4.27,3877,0,11014,Fully Furnished,Resale,2025-07-29,True
+PROP_0102,Commercial BHK Commercial in Adyar,Chennai,Adyar,Commercial,1.5,2649,0,5663,Unfurnished,New Booking,2025-01-01,True
+PROP_0103,2 BHK Apartment in Rohini,Delhi,Rohini,Apartment,4.91,1692,2,29019,Fully Furnished,Resale,2025-02-17,True
+PROP_0104,1 BHK Apartment in Rohini,Delhi,Rohini,Apartment,1.17,1398,1,8369,Fully Furnished,Resale,2025-02-13,True
+PROP_0105,Commercial BHK Villa in Worli,Mumbai,Worli,Villa,3.95,1911,0,20670,Fully Furnished,Resale,2025-05-22,True
+PROP_0106,Commercial BHK Commercial in Kothrud,Pune,Kothrud,Commercial,1.34,1510,0,8874,Fully Furnished,Resale,2025-04-03,True
+PROP_0107,Commercial BHK Plot in Connaught Place,Delhi,Connaught Place,Plot,3.77,4695,0,8030,Semi Furnished,New Booking,2025-09-28,True
+PROP_0108,1 BHK Apartment in Park Street,Kolkata,Park Street,Apartment,1.32,1098,1,12022,Semi Furnished,New Booking,2024-12-30,True
+PROP_0109,Commercial BHK Commercial in OMR,Chennai,OMR,Commercial,1.53,1658,0,9228,Unfurnished,New Booking,2025-04-03,True
+PROP_0110,4 BHK Apartment in Salt Lake,Kolkata,Salt Lake,Apartment,1.55,1569,4,9879,Fully Furnished,Resale,2025-07-18,True
+PROP_0111,Commercial BHK Plot in Salt Lake,Kolkata,Salt Lake,Plot,0.9,4950,0,1818,Fully Furnished,New Booking,2025-02-11,True
+PROP_0112,Commercial BHK Villa in New Town,Kolkata,New Town,Villa,0.69,3070,0,2248,Unfurnished,Resale,2025-06-11,True
+PROP_0113,Commercial BHK Villa in Velachery,Chennai,Velachery,Villa,1.76,2381,0,7392,Fully Furnished,Resale,2025-06-22,True
+PROP_0114,1 BHK Apartment in Koramangala,Bangalore,Koramangala,Apartment,3.15,1288,1,24457,Semi Furnished,Resale,2025-08-17,True
+PROP_0115,Commercial BHK Commercial in T Nagar,Chennai,T Nagar,Commercial,2.74,1928,0,14212,Semi Furnished,New Booking,2025-03-28,True
+PROP_0116,Commercial BHK Plot in Velachery,Chennai,Velachery,Plot,1.59,3023,0,5260,Semi Furnished,Resale,2024-12-15,True
+PROP_0117,Commercial BHK Commercial in Velachery,Chennai,Velachery,Commercial,0.9,552,0,16304,Fully Furnished,New Booking,2025-02-24,True
+PROP_0118,3 BHK Apartment in Juhu,Mumbai,Juhu,Apartment,4.14,1965,3,21069,Unfurnished,Resale,2025-02-12,True
+PROP_0119,Commercial BHK Commercial in Koramangala,Bangalore,Koramangala,Commercial,2.66,2411,0,11033,Semi Furnished,Resale,2025-09-01,True
+PROP_0120,Commercial BHK Villa in Rajarhat,Kolkata,Rajarhat,Villa,0.42,2148,0,1955,Unfurnished,New Booking,2025-07-09,True
+PROP_0121,Commercial BHK Commercial in Hinjewadi,Pune,Hinjewadi,Commercial,1.45,1841,0,7876,Unfurnished,Resale,2024-11-18,True
+PROP_0122,4 BHK Apartment in Velachery,Chennai,Velachery,Apartment,2.95,1452,4,20317,Unfurnished,Resale,2025-01-04,True
+PROP_0123,Commercial BHK Commercial in Howrah,Kolkata,Howrah,Commercial,0.92,1286,0,7154,Unfurnished,New Booking,2025-08-15,True
+PROP_0124,Commercial BHK Plot in Worli,Mumbai,Worli,Plot,3.74,2228,0,16786,Semi Furnished,New Booking,2025-06-25,True
+PROP_0125,1 BHK Apartment in T Nagar,Chennai,T Nagar,Apartment,0.98,1209,1,8106,Unfurnished,New Booking,2025-06-23,True
+PROP_0126,4 BHK Apartment in OMR,Chennai,OMR,Apartment,1.98,658,4,30091,Semi Furnished,Resale,2024-11-22,True
+PROP_0127,Commercial BHK Plot in Howrah,Kolkata,Howrah,Plot,1.98,1786,0,11086,Unfurnished,New Booking,2024-11-06,True
+PROP_0128,Commercial BHK Plot in Anna Nagar,Chennai,Anna Nagar,Plot,2.48,4716,0,5259,Fully Furnished,New Booking,2025-08-15,True
+PROP_0129,Commercial BHK Commercial in Gachibowli,Hyderabad,Gachibowli,Commercial,1.04,971,0,10711,Fully Furnished,Resale,2025-08-02,True
+PROP_0130,Commercial BHK Plot in Vasant Kunj,Delhi,Vasant Kunj,Plot,2.12,4190,0,5060,Fully Furnished,Resale,2025-09-25,True
+PROP_0131,Commercial BHK Villa in Indiranagar,Bangalore,Indiranagar,Villa,2.53,1957,0,12928,Fully Furnished,Resale,2025-08-23,True
+PROP_0132,Commercial BHK Plot in Gachibowli,Hyderabad,Gachibowli,Plot,1.25,4145,0,3016,Fully Furnished,New Booking,2025-01-15,True
+PROP_0133,Commercial BHK Villa in Kharadi,Pune,Kharadi,Villa,1.98,2446,0,8095,Fully Furnished,Resale,2025-02-22,True
+PROP_0134,2 BHK Apartment in Vasant Kunj,Delhi,Vasant Kunj,Apartment,3.96,1431,2,27673,Semi Furnished,New Booking,2025-06-21,True
+PROP_0135,Commercial BHK Villa in Salt Lake,Kolkata,Salt Lake,Villa,0.76,2019,0,3764,Fully Furnished,New Booking,2024-11-27,True
+PROP_0136,4 BHK Apartment in Bandra,Mumbai,Bandra,Apartment,6.62,1484,4,44609,Unfurnished,New Booking,2025-06-19,True
+PROP_0137,Commercial BHK Commercial in New Town,Kolkata,New Town,Commercial,1.25,824,0,15170,Unfurnished,Resale,2025-05-02,True
+PROP_0138,Commercial BHK Villa in Vasant Kunj,Delhi,Vasant Kunj,Villa,4.86,2907,0,16718,Semi Furnished,New Booking,2025-04-09,True
+PROP_0139,1 BHK Apartment in Banjara Hills,Hyderabad,Banjara Hills,Apartment,2.64,1500,1,17600,Unfurnished,New Booking,2025-07-18,True
+PROP_0140,Commercial BHK Plot in Anna Nagar,Chennai,Anna Nagar,Plot,2.17,3363,0,6453,Unfurnished,Resale,2025-02-04,True
+PROP_0141,Commercial BHK Villa in Jubilee Hills,Hyderabad,Jubilee Hills,Villa,1.08,3220,0,3354,Unfurnished,Resale,2025-02-14,True
+PROP_0142,Commercial BHK Plot in Velachery,Chennai,Velachery,Plot,0.75,4744,0,1581,Semi Furnished,New Booking,2024-12-08,True
+PROP_0143,3 BHK Apartment in Rohini,Delhi,Rohini,Apartment,3.31,1607,3,20597,Semi Furnished,New Booking,2025-03-13,True
+PROP_0144,Commercial BHK Villa in Jubilee Hills,Hyderabad,Jubilee Hills,Villa,2.15,3921,0,5483,Unfurnished,New Booking,2025-04-06,True
+PROP_0145,Commercial BHK Villa in Juhu,Mumbai,Juhu,Villa,7.56,3881,0,19480,Fully Furnished,New Booking,2025-08-08,True
+PROP_0146,Commercial BHK Villa in Juhu,Mumbai,Juhu,Villa,3.71,2986,0,12425,Unfurnished,New Booking,2025-04-21,True
+PROP_0147,Commercial BHK Plot in Madhapur,Hyderabad,Madhapur,Plot,1.21,3133,0,3862,Fully Furnished,New Booking,2025-10-28,True
+PROP_0148,Commercial BHK Plot in Baner,Pune,Baner,Plot,2.25,2132,0,10553,Semi Furnished,Resale,2025-10-17,True
+PROP_0149,2 BHK Apartment in Powai,Mumbai,Powai,Apartment,7.73,655,2,118015,Semi Furnished,Resale,2025-05-10,True
+PROP_0150,Commercial BHK Villa in Anna Nagar,Chennai,Anna Nagar,Villa,2.79,2826,0,9873,Fully Furnished,New Booking,2025-07-15,True
+PROP_0151,Commercial BHK Plot in New Town,Kolkata,New Town,Plot,1.26,2140,0,5888,Semi Furnished,Resale,2025-10-22,True
+PROP_0152,Commercial BHK Plot in Andheri,Mumbai,Andheri,Plot,5.03,3642,0,13811,Semi Furnished,Resale,2025-04-16,True
+PROP_0153,Commercial BHK Commercial in Velachery,Chennai,Velachery,Commercial,1.59,1797,0,8848,Semi Furnished,New Booking,2025-02-18,True
+PROP_0154,2 BHK Apartment in Indiranagar,Bangalore,Indiranagar,Apartment,3.95,1623,2,24338,Unfurnished,New Booking,2025-05-19,True
+PROP_0155,Commercial BHK Villa in Dwarka,Delhi,Dwarka,Villa,1.31,2320,0,5647,Unfurnished,Resale,2025-05-11,True
+PROP_0156,Commercial BHK Villa in Hitech City,Hyderabad,Hitech City,Villa,2.88,2196,0,13115,Fully Furnished,Resale,2025-06-20,True
+PROP_0157,Commercial BHK Commercial in Anna Nagar,Chennai,Anna Nagar,Commercial,2.44,1186,0,20573,Semi Furnished,Resale,2025-08-02,True
+PROP_0158,4 BHK Apartment in Howrah,Kolkata,Howrah,Apartment,0.72,1946,4,3700,Fully Furnished,Resale,2025-07-24,True
+PROP_0159,Commercial BHK Villa in Dwarka,Delhi,Dwarka,Villa,3.17,1818,0,17437,Unfurnished,New Booking,2025-05-28,True
+PROP_0160,1 BHK Apartment in Howrah,Kolkata,Howrah,Apartment,1.06,875,1,12114,Fully Furnished,New Booking,2025-09-16,True
+PROP_0161,Commercial BHK Plot in Bandra,Mumbai,Bandra,Plot,5.05,1887,0,26762,Unfurnished,New Booking,2025-10-10,True
+PROP_0162,4 BHK Apartment in Baner,Pune,Baner,Apartment,1.3,1943,4,6691,Unfurnished,New Booking,2025-07-10,True
+PROP_0163,Commercial BHK Plot in New Town,Kolkata,New Town,Plot,1.57,3690,0,4255,Unfurnished,Resale,2025-10-26,True
+PROP_0164,Commercial BHK Plot in Banjara Hills,Hyderabad,Banjara Hills,Plot,1.57,2598,0,6043,Fully Furnished,New Booking,2025-06-21,True
+PROP_0165,Commercial BHK Plot in Bandra,Mumbai,Bandra,Plot,6.93,1378,0,50290,Fully Furnished,New Booking,2025-05-01,True
+PROP_0166,3 BHK Apartment in Whitefield,Bangalore,Whitefield,Apartment,2.28,1975,3,11544,Semi Furnished,New Booking,2025-02-18,True
+PROP_0167,Commercial BHK Plot in Howrah,Kolkata,Howrah,Plot,1.41,2265,0,6225,Fully Furnished,New Booking,2024-12-05,True
+PROP_0168,Commercial BHK Plot in T Nagar,Chennai,T Nagar,Plot,2.86,4545,0,6293,Unfurnished,Resale,2025-04-21,True
+PROP_0169,Commercial BHK Commercial in Banjara Hills,Hyderabad,Banjara Hills,Commercial,1.91,2237,0,8538,Unfurnished,Resale,2024-11-15,True
+PROP_0170,3 BHK Apartment in Madhapur,Hyderabad,Madhapur,Apartment,1.93,1743,3,11073,Unfurnished,Resale,2024-12-21,True
+PROP_0171,3 BHK Apartment in Indiranagar,Bangalore,Indiranagar,Apartment,2.1,1226,3,17129,Unfurnished,Resale,2025-08-20,True
+PROP_0172,Commercial BHK Villa in Andheri,Mumbai,Andheri,Villa,4.72,3980,0,11859,Semi Furnished,Resale,2024-11-26,True
+PROP_0173,1 BHK Apartment in Saket,Delhi,Saket,Apartment,2.67,933,1,28617,Semi Furnished,Resale,2025-07-11,True
+PROP_0174,Commercial BHK Villa in Velachery,Chennai,Velachery,Villa,2.29,3435,0,6667,Unfurnished,Resale,2024-11-24,True
+PROP_0175,Commercial BHK Villa in Connaught Place,Delhi,Connaught Place,Villa,3.32,3542,0,9373,Fully Furnished,Resale,2025-01-04,True
+PROP_0176,Commercial BHK Villa in Dwarka,Delhi,Dwarka,Villa,4.75,3659,0,12982,Semi Furnished,Resale,2025-01-08,True
+PROP_0177,Commercial BHK Plot in Salt Lake,Kolkata,Salt Lake,Plot,0.87,1967,0,4423,Unfurnished,New Booking,2025-10-13,True
+PROP_0178,Commercial BHK Commercial in Viman Nagar,Pune,Viman Nagar,Commercial,2.37,2170,0,10922,Unfurnished,Resale,2025-09-05,True
+PROP_0179,Commercial BHK Plot in Banjara Hills,Hyderabad,Banjara Hills,Plot,2.92,2497,0,11694,Fully Furnished,New Booking,2025-04-15,True
+PROP_0180,Commercial BHK Villa in Rohini,Delhi,Rohini,Villa,3.62,2260,0,16018,Fully Furnished,Resale,2025-07-16,True
+PROP_0181,2 BHK Apartment in New Town,Kolkata,New Town,Apartment,0.61,1070,2,5701,Semi Furnished,New Booking,2025-02-23,True
+PROP_0182,2 BHK Apartment in Adyar,Chennai,Adyar,Apartment,2.08,1643,2,12660,Semi Furnished,New Booking,2025-05-15,True
+PROP_0183,Commercial BHK Commercial in Baner,Pune,Baner,Commercial,2.25,2813,0,7999,Unfurnished,Resale,2025-08-15,True
+PROP_0184,1 BHK Apartment in Whitefield,Bangalore,Whitefield,Apartment,0.82,1583,1,5180,Semi Furnished,New Booking,2025-05-05,True
+PROP_0185,Commercial BHK Commercial in Worli,Mumbai,Worli,Commercial,2.09,1695,0,12330,Fully Furnished,Resale,2025-10-05,True
+PROP_0186,3 BHK Apartment in Velachery,Chennai,Velachery,Apartment,2.49,1470,3,16939,Semi Furnished,Resale,2024-12-26,True
+PROP_0187,Commercial BHK Plot in T Nagar,Chennai,T Nagar,Plot,2.62,1191,0,21998,Semi Furnished,Resale,2025-05-22,True
+PROP_0188,Commercial BHK Commercial in Kharadi,Pune,Kharadi,Commercial,1.88,1320,0,14242,Unfurnished,Resale,2025-07-12,True
+PROP_0189,Commercial BHK Commercial in Hinjewadi,Pune,Hinjewadi,Commercial,0.82,2224,0,3687,Semi Furnished,Resale,2024-12-03,True
+PROP_0190,Commercial BHK Plot in Viman Nagar,Pune,Viman Nagar,Plot,0.53,4312,0,1229,Unfurnished,New Booking,2025-05-08,True
+PROP_0191,Commercial BHK Plot in Viman Nagar,Pune,Viman Nagar,Plot,1.04,1451,0,7167,Semi Furnished,Resale,2024-11-06,True
+PROP_0192,Commercial BHK Commercial in Rohini,Delhi,Rohini,Commercial,1.89,2956,0,6394,Fully Furnished,New Booking,2025-02-03,True
+PROP_0193,Commercial BHK Villa in Whitefield,Bangalore,Whitefield,Villa,1.5,3405,0,4405,Fully Furnished,Resale,2025-07-19,True
+PROP_0194,1 BHK Apartment in Whitefield,Bangalore,Whitefield,Apartment,3.34,1161,1,28768,Unfurnished,New Booking,2025-03-10,True
+PROP_0195,4 BHK Apartment in HSR Layout,Bangalore,HSR Layout,Apartment,3.91,1416,4,27613,Semi Furnished,Resale,2025-06-02,True
+PROP_0196,Commercial BHK Commercial in Hitech City,Hyderabad,Hitech City,Commercial,0.98,1294,0,7573,Semi Furnished,New Booking,2025-07-06,True
+PROP_0197,2 BHK Apartment in New Town,Kolkata,New Town,Apartment,1.71,692,2,24711,Semi Furnished,Resale,2025-07-06,True
+PROP_0198,Commercial BHK Commercial in Viman Nagar,Pune,Viman Nagar,Commercial,2.44,1854,0,13161,Fully Furnished,New Booking,2025-08-05,True
+PROP_0199,Commercial BHK Plot in Dwarka,Delhi,Dwarka,Plot,2.24,1923,0,11648,Semi Furnished,New Booking,2025-02-12,True
+PROP_0200,Commercial BHK Plot in Koramangala,Bangalore,Koramangala,Plot,1.27,4867,0,2609,Unfurnished,Resale,2025-10-18,True

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - RealEstate India</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-building"></i>
+                <span>RealEstate India</span>
+            </div>
+            <div class="nav-menu">
+                <a href="/templates/dashboard.html" class="nav-link">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="/templates/properties.html" class="nav-link">
+                    <i class="fas fa-search"></i> Properties
+                </a>
+                <a href="/templates/bookings.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i> My Bookings
+                </a>
+                <a href="/templates/analysis.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i> Analysis
+                </a>
+                <a href="/templates/profile.html" class="nav-link active">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div id="authCheck" style="display: none;">
+            <div class="message error">
+                <p>You are not logged in. Redirecting to login page...</p>
+            </div>
+        </div>
+
+        <div id="mainContent" style="display: none;">
+            <div class="dashboard-header">
+                <h1>My Profile</h1>
+                <p>Manage your account information and preferences</p>
+            </div>
+
+            <div id="message" class="message"></div>
+
+            <div class="profile-content">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h2 id="userName">Loading...</h2>
+                    <p id="userEmail">Loading...</p>
+                </div>
+
+                <div class="profile-sections">
+                    <!-- Profile Information -->
+                    <div class="profile-section">
+                        <h3><i class="fas fa-user-circle"></i> Personal Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <label class="info-label">Full Name</label>
+                                <span class="info-value" id="infoFullName">Loading...</span>
+                            </div>
+                            <div class="info-item">
+                                <label class="info-label">Email</label>
+                                <span class="info-value" id="infoEmail">Loading...</span>
+                            </div>
+                            <div class="info-item">
+                                <label class="info-label">Phone</label>
+                                <span class="info-value" id="infoPhone">Loading...</span>
+                            </div>
+                            <div class="info-item">
+                                <label class="info-label">City</label>
+                                <span class="info-value" id="infoCity">Loading...</span>
+                            </div>
+                            <div class="info-item">
+                                <label class="info-label">Username</label>
+                                <span class="info-value" id="infoUsername">Loading...</span>
+                            </div>
+                            <div class="info-item">
+                                <label class="info-label">Member Since</label>
+                                <span class="info-value" id="infoMemberSince">Loading...</span>
+                            </div>
+                        </div>
+                        <button class="btn-primary" onclick="toggleEditForm()">
+                            <i class="fas fa-edit"></i> Edit Profile
+                        </button>
+                    </div>
+
+                    <!-- Edit Profile Form (Hidden by default) -->
+                    <div class="profile-section" id="editForm" style="display: none;">
+                        <h3><i class="fas fa-edit"></i> Edit Profile</h3>
+                        <form id="updateProfileForm" class="auth-form">
+                            <div class="form-group">
+                                <label for="editFullName">Full Name</label>
+                                <input type="text" id="editFullName" name="full_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editEmail">Email</label>
+                                <input type="email" id="editEmail" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editPhone">Phone</label>
+                                <input type="tel" id="editPhone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editCity">City</label>
+                                <input type="text" id="editCity" name="city" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
+                                <button type="button" class="btn-secondary" onclick="toggleEditForm()">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Change Password -->
+                    <div class="profile-section">
+                        <h3><i class="fas fa-lock"></i> Change Password</h3>
+                        <form id="changePasswordForm" class="auth-form">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword" name="current_password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" name="new_password" required 
+                                       minlength="6" placeholder="At least 6 characters">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <input type="password" id="confirmPassword" name="confirm_password" required
+                                       placeholder="Re-enter new password">
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-key"></i> Change Password
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Booking Statistics -->
+                    <div class="profile-section">
+                        <h3><i class="fas fa-chart-bar"></i> Booking Statistics</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="totalBookings">0</h3>
+                                    <p>Total Bookings</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="totalSpent">₹0 Cr</h3>
+                                    <p>Total Amount</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon">
+                                    <i class="fas fa-home"></i>
+                                </div>
+                                <div class="stat-info">
+                                    <h3 id="activeBookings">0</h3>
+                                    <p>Active Bookings</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentUser = null;
+
+        // Check authentication on page load
+        async function checkAuth() {
+            try {
+                showMessage('Checking authentication...', 'info');
+                const response = await fetch('/api/user');
+                const data = await response.json();
+                
+                if (!data.success || !data.user) {
+                    document.getElementById('authCheck').style.display = 'block';
+                    document.getElementById('mainContent').style.display = 'none';
+                    showMessage('Please login to view profile', 'error');
+                    
+                    setTimeout(() => {
+                        window.location.href = '/templates/login.html';
+                    }, 2000);
+                    return false;
+                }
+                
+                document.getElementById('authCheck').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                return true;
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                document.getElementById('authCheck').style.display = 'block';
+                document.getElementById('mainContent').style.display = 'none';
+                showMessage('Network error: Cannot verify login status', 'error');
+                
+                setTimeout(() => {
+                    window.location.href = '/templates/login.html';
+                }, 2000);
+                return false;
+            }
+        }
+
+        async function loadUserProfile() {
+            try {
+                showMessage('Loading profile information...', 'info');
+                
+                const response = await fetch('/api/user');
+                const data = await response.json();
+                
+                if (data.success && data.user) {
+                    currentUser = data.user;
+                    displayUserInfo(data.user);
+                    await loadBookingStats();
+                    showMessage('Profile loaded successfully', 'success', 3000);
+                } else {
+                    throw new Error('Failed to load user profile');
+                }
+            } catch (error) {
+                console.error('Failed to load user profile:', error);
+                showMessage(`Error: ${error.message}`, 'error');
+            }
+        }
+
+        function displayUserInfo(user) {
+            try {
+                // Update profile header
+                document.getElementById('userName').textContent = user.full_name;
+                document.getElementById('userEmail').textContent = user.email;
+
+                // Update info grid
+                document.getElementById('infoFullName').textContent = user.full_name;
+                document.getElementById('infoEmail').textContent = user.email;
+                document.getElementById('infoPhone').textContent = user.phone;
+                document.getElementById('infoCity').textContent = user.city || 'Not specified';
+                document.getElementById('infoUsername').textContent = user.username;
+                document.getElementById('infoMemberSince').textContent = user.created_at ? 
+                    new Date(user.created_at).toLocaleDateString('en-IN') : 'Recently joined';
+
+                // Update edit form
+                document.getElementById('editFullName').value = user.full_name;
+                document.getElementById('editEmail').value = user.email;
+                document.getElementById('editPhone').value = user.phone;
+                document.getElementById('editCity').value = user.city || '';
+            } catch (error) {
+                console.error('Error displaying user info:', error);
+                showMessage('Error displaying profile information', 'error');
+            }
+        }
+
+        async function loadBookingStats() {
+            try {
+                const response = await fetch('/api/bookings');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const bookings = data.bookings;
+                    document.getElementById('totalBookings').textContent = bookings.length;
+                    
+                    const totalAmount = bookings.reduce((sum, booking) => sum + parseFloat(booking.total_amount || 0), 0);
+                    document.getElementById('totalSpent').textContent = `₹${totalAmount.toFixed(2)} Cr`;
+                    
+                    const activeBookings = bookings.filter(booking => booking.status === 'Confirmed').length;
+                    document.getElementById('activeBookings').textContent = activeBookings;
+                }
+            } catch (error) {
+                console.error('Failed to load booking stats:', error);
+                showMessage('Error loading booking statistics', 'error');
+            }
+        }
+
+        function toggleEditForm() {
+            const editForm = document.getElementById('editForm');
+            const isVisible = editForm.style.display === 'block';
+            editForm.style.display = isVisible ? 'none' : 'block';
+        }
+
+        async function updateProfile(formData) {
+            try {
+                showMessage('Updating profile...', 'info');
+                
+                const response = await fetch('/api/update-profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage(result.message, 'success');
+                    toggleEditForm();
+                    await loadUserProfile(); // Reload user data
+                } else {
+                    throw new Error(result.message || 'Profile update failed');
+                }
+            } catch (error) {
+                console.error('Profile update failed:', error);
+                showMessage(`Update failed: ${error.message}`, 'error');
+            }
+        }
+
+        async function changePassword(formData) {
+            try {
+                // Validation
+                if (formData.new_password !== formData.confirm_password) {
+                    throw new Error('New passwords do not match');
+                }
+
+                if (formData.new_password.length < 6) {
+                    throw new Error('Password must be at least 6 characters long');
+                }
+
+                showMessage('Changing password...', 'info');
+
+                const response = await fetch('/api/change-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        current_password: formData.current_password,
+                        new_password: formData.new_password
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage(result.message, 'success');
+                    document.getElementById('changePasswordForm').reset();
+                } else {
+                    throw new Error(result.message || 'Password change failed');
+                }
+            } catch (error) {
+                console.error('Password change failed:', error);
+                showMessage(`Password change failed: ${error.message}`, 'error');
+            }
+        }
+
+        function showMessage(message, type, autoHide = 5000) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    <i class="fas fa-${getMessageIcon(type)}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            messageDiv.style.display = 'block';
+
+            if (type === 'success' || type === 'info') {
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, autoHide);
+            }
+        }
+
+        function getMessageIcon(type) {
+            const icons = {
+                'success': 'check-circle',
+                'error': 'exclamation-circle',
+                'info': 'info-circle',
+                'warning': 'exclamation-triangle'
+            };
+            return icons[type] || 'info-circle';
+        }
+
+        async function logout() {
+            try {
+                showMessage('Logging out...', 'info');
+                await fetch('/api/logout', {
+                    method: 'POST'
+                });
+                window.location.href = '/templates/login.html';
+            } catch (error) {
+                console.error('Logout failed:', error);
+                window.location.href = '/templates/login.html';
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async () => {
+            const isAuthenticated = await checkAuth();
+            if (isAuthenticated) {
+                await loadUserProfile();
+
+                // Update profile form
+                document.getElementById('updateProfileForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    const data = Object.fromEntries(formData.entries());
+                    
+                    const button = e.target.querySelector('button[type="submit"]');
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '<div class="loading"></div> Saving...';
+                    button.disabled = true;
+                    
+                    await updateProfile(data);
+                    
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                });
+
+                // Change password form
+                document.getElementById('changePasswordForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    const data = Object.fromEntries(formData.entries());
+                    
+                    const button = e.target.querySelector('button[type="submit"]');
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '<div class="loading"></div> Changing...';
+                    button.disabled = true;
+                    
+                    await changePassword(data);
+                    
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                });
+            }
+        });
+    </script>
+
+    <style>
+        .profile-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 1rem;
+            color: white;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+        }
+
+        .profile-header h2 {
+            margin-bottom: 0.5rem;
+            font-size: 1.75rem;
+        }
+
+        .profile-header p {
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .profile-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .profile-section {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .profile-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .message-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-content {
+                padding: 0 1rem;
+            }
+
+            .profile-header {
+                margin-bottom: 2rem;
+                padding: 1.5rem;
+            }
+
+            .profile-section {
+                padding: 1.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

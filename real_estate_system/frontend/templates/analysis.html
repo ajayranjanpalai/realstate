@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis - RealEstate India</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-building"></i>
+                <span>RealEstate India</span>
+            </div>
+            <div class="nav-menu">
+                <a href="/templates/dashboard.html" class="nav-link">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="/templates/properties.html" class="nav-link">
+                    <i class="fas fa-search"></i> Properties
+                </a>
+                <a href="/templates/bookings.html" class="nav-link">
+                    <i class="fas fa-calendar-check"></i> My Bookings
+                </a>
+                <a href="/templates/analysis.html" class="nav-link active">
+                    <i class="fas fa-chart-bar"></i> Analysis
+                </a>
+                <a href="/templates/profile.html" class="nav-link">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div id="authCheck" style="display: none;">
+            <div class="message error">
+                <p>You are not logged in. Redirecting to login page...</p>
+            </div>
+        </div>
+
+        <div id="mainContent" style="display: none;">
+            <div class="dashboard-header">
+                <h1>Market Analysis</h1>
+                <p>Comprehensive insights into property market trends</p>
+            </div>
+
+            <div id="message" class="message"></div>
+
+            <div class="analysis-content">
+                <!-- Summary Statistics -->
+                <div class="analysis-section">
+                    <h2><i class="fas fa-chart-line"></i> Market Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-building"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalProperties">0</h3>
+                                <p>Total Properties</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-rupee-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="avgPrice">₹0 Cr</h3>
+                                <p>Average Price</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-city"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalCities">0</h3>
+                                <p>Cities Covered</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="propertyTypes">0</h3>
+                                <p>Property Types</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- City-wise Analysis -->
+                <div class="analysis-section">
+                    <h2><i class="fas fa-map-marker-alt"></i> City-wise Analysis</h2>
+                    <div id="cityAnalysis" class="city-grid">
+                        <div class="loading-placeholder">
+                            <div class="loading"></div>
+                            <p>Loading city analysis...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property Type Analysis -->
+                <div class="analysis-section">
+                    <h2><i class="fas fa-building"></i> Property Type Analysis</h2>
+                    <div id="typeAnalysis" class="type-grid">
+                        <div class="loading-placeholder">
+                            <div class="loading"></div>
+                            <p>Loading type analysis...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Price Range Analysis -->
+                <div class="analysis-section">
+                    <h2><i class="fas fa-tags"></i> Price Range Analysis</h2>
+                    <div class="price-ranges">
+                        <div class="price-range-card">
+                            <h4>Budget Properties</h4>
+                            <div class="price-range-info">
+                                <span class="price-range">₹0.5 - 1.5 Cr</span>
+                                <span class="property-count" id="budgetCount">0 properties</span>
+                            </div>
+                        </div>
+                        <div class="price-range-card">
+                            <h4>Mid-Range Properties</h4>
+                            <div class="price-range-info">
+                                <span class="price-range">₹1.5 - 3 Cr</span>
+                                <span class="property-count" id="midRangeCount">0 properties</span>
+                            </div>
+                        </div>
+                        <div class="price-range-card">
+                            <h4>Premium Properties</h4>
+                            <div class="price-range-info">
+                                <span class="price-range">₹3+ Cr</span>
+                                <span class="property-count" id="premiumCount">0 properties</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let analysisData = null;
+
+        // Check authentication on page load
+        async function checkAuth() {
+            try {
+                showMessage('Checking authentication...', 'info');
+                const response = await fetch('/api/user');
+                const data = await response.json();
+                
+                if (!data.success || !data.user) {
+                    document.getElementById('authCheck').style.display = 'block';
+                    document.getElementById('mainContent').style.display = 'none';
+                    showMessage('Please login to view analysis', 'error');
+                    
+                    setTimeout(() => {
+                        window.location.href = '/templates/login.html';
+                    }, 2000);
+                    return false;
+                }
+                
+                document.getElementById('authCheck').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                return true;
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                document.getElementById('authCheck').style.display = 'block';
+                document.getElementById('mainContent').style.display = 'none';
+                showMessage('Network error: Cannot verify login status', 'error');
+                
+                setTimeout(() => {
+                    window.location.href = '/templates/login.html';
+                }, 2000);
+                return false;
+            }
+        }
+
+        async function loadAnalysis() {
+            try {
+                showMessage('Loading market analysis...', 'info');
+                
+                const response = await fetch('/api/analysis');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    analysisData = data.analysis;
+                    displayAnalysis(data.analysis);
+                    showMessage('Market analysis loaded successfully', 'success', 3000);
+                } else {
+                    throw new Error(data.message || 'Failed to load analysis data');
+                }
+            } catch (error) {
+                console.error('Failed to load analysis:', error);
+                showMessage(`Error: ${error.message}`, 'error');
+                displayAnalysis({
+                    basic_stats: { total_properties: 0, average_price: 0, cities_covered: 0, property_types: {} },
+                    city_stats: {},
+                    type_stats: {}
+                });
+            }
+        }
+
+        function displayAnalysis(analysis) {
+            try {
+                const stats = analysis.basic_stats;
+                
+                // Update summary statistics
+                document.getElementById('totalProperties').textContent = stats.total_properties.toLocaleString();
+                document.getElementById('avgPrice').textContent = `₹${stats.average_price} Cr`;
+                document.getElementById('totalCities').textContent = stats.cities_covered;
+                document.getElementById('propertyTypes').textContent = Object.keys(stats.property_types).length;
+
+                // Display city analysis
+                displayCityAnalysis(analysis.city_stats);
+
+                // Display type analysis
+                displayTypeAnalysis(analysis.type_stats);
+
+                // Calculate price ranges
+                calculatePriceRanges();
+            } catch (error) {
+                console.error('Error displaying analysis:', error);
+                showMessage('Error displaying analysis data', 'error');
+            }
+        }
+
+        function displayCityAnalysis(cityStats) {
+            const container = document.getElementById('cityAnalysis');
+            if (!container) return;
+
+            if (Object.keys(cityStats).length === 0) {
+                container.innerHTML = '<div class="no-data">No city data available</div>';
+                return;
+            }
+
+            const cities = Object.entries(cityStats).sort((a, b) => b[1] - a[1]);
+            const maxPrice = Math.max(...Object.values(cityStats));
+            
+            container.innerHTML = cities.map(([city, price]) => `
+                <div class="city-card">
+                    <div class="city-header">
+                        <h4>${city}</h4>
+                        <span class="city-price">₹${price.toFixed(2)} Cr</span>
+                    </div>
+                    <div class="city-stats">
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill" style="width: ${(price / maxPrice) * 100}%"></div>
+                        </div>
+                        <div class="stat-label">
+                            Average Price
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayTypeAnalysis(typeStats) {
+            const container = document.getElementById('typeAnalysis');
+            if (!container) return;
+
+            if (Object.keys(typeStats).length === 0) {
+                container.innerHTML = '<div class="no-data">No type data available</div>';
+                return;
+            }
+
+            const total = Object.values(typeStats).reduce((sum, count) => sum + count, 0);
+            
+            container.innerHTML = Object.entries(typeStats).map(([type, count]) => {
+                const percentage = ((count / total) * 100).toFixed(1);
+                return `
+                <div class="type-card">
+                    <div class="type-header">
+                        <h4>${type}</h4>
+                        <span class="type-count">${count} properties</span>
+                    </div>
+                    <div class="type-stats">
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill" style="width: ${percentage}%"></div>
+                        </div>
+                        <div class="stat-label">
+                            ${percentage}% of total
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function calculatePriceRanges() {
+            // This would typically come from the backend analysis
+            // For now, we'll use sample data based on typical distributions
+            const total = analysisData.basic_stats.total_properties || 100;
+            document.getElementById('budgetCount').textContent = `${Math.round(total * 0.45)} properties`;
+            document.getElementById('midRangeCount').textContent = `${Math.round(total * 0.32)} properties`;
+            document.getElementById('premiumCount').textContent = `${Math.round(total * 0.23)} properties`;
+        }
+
+        function showMessage(message, type, autoHide = 5000) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `
+                <div class="message-content">
+                    <i class="fas fa-${getMessageIcon(type)}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            messageDiv.style.display = 'block';
+
+            if (type === 'success' || type === 'info') {
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, autoHide);
+            }
+        }
+
+        function getMessageIcon(type) {
+            const icons = {
+                'success': 'check-circle',
+                'error': 'exclamation-circle',
+                'info': 'info-circle',
+                'warning': 'exclamation-triangle'
+            };
+            return icons[type] || 'info-circle';
+        }
+
+        async function logout() {
+            try {
+                showMessage('Logging out...', 'info');
+                await fetch('/api/logout', {
+                    method: 'POST'
+                });
+                window.location.href = '/templates/login.html';
+            } catch (error) {
+                console.error('Logout failed:', error);
+                window.location.href = '/templates/login.html';
+            }
+        }
+
+        // Load analysis when page loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            const isAuthenticated = await checkAuth();
+            if (isAuthenticated) {
+                await loadAnalysis();
+            }
+        });
+    </script>
+
+    <style>
+        .analysis-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .analysis-section {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .analysis-section h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+        }
+
+        .loading-placeholder {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .loading-placeholder .loading {
+            margin: 0 auto 1rem;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .city-grid,
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .city-card,
+        .type-card {
+            background: var(--background-color);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .city-header,
+        .type-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .city-header h4,
+        .type-header h4 {
+            color: var(--text-primary);
+            margin: 0;
+            font-size: 1.125rem;
+        }
+
+        .city-price,
+        .type-count {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .stat-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), #764ba2);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .price-ranges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .price-range-card {
+            background: var(--background-color);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .price-range-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+        }
+
+        .price-range-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .price-range {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+
+        .property-count {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .message-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .analysis-section {
+                padding: 1.5rem;
+            }
+
+            .city-grid,
+            .type-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-ranges {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

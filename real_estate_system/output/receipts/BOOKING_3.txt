@@ -1,0 +1,31 @@
+
+            REALESTATE INDIA - BOOKING RECEIPT
+            ==================================
+            
+            Booking ID: 3
+            Date: 2025-11-04 18:42:45
+            
+            PROPERTY DETAILS:
+            ----------------
+            Title: Commercial BHK Villa in Worli
+            Location: Worli, Mumbai
+            Type: Villa
+            BHK: 0
+            Area: 1817 sqft
+            Furnishing: Semi Furnished
+            Transaction Type: Resale
+            
+            PRICING:
+            --------
+            Total Price: Rs.3.09 Crores
+            Advance Amount: Rs.0.31 Crores
+            Balance Amount: Rs.2.78 Crores
+            
+            CUSTOMER DETAILS:
+            -----------------
+            Name: Ajay ranjan palai
+            Email: palaiajayranja@gmail.com
+            Phone: 7847808553
+            
+            Thank you for choosing RealEstate India!
+            

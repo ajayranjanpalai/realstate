@@ -1,0 +1,31 @@
+
+            REALESTATE INDIA - BOOKING RECEIPT
+            ==================================
+            
+            Booking ID: 2
+            Date: 2025-11-02 17:16:29
+            
+            PROPERTY DETAILS:
+            ----------------
+            Title: Commercial BHK Villa in Electronic City
+            Location: Electronic City, Bangalore
+            Type: Villa
+            BHK: 0
+            Area: 1557 sqft
+            Furnishing: Unfurnished
+            Transaction Type: New Booking
+            
+            PRICING:
+            --------
+            Total Price: Rs.2.23 Crores
+            Advance Amount: Rs.0.22 Crores
+            Balance Amount: Rs.2.01 Crores
+            
+            CUSTOMER DETAILS:
+            -----------------
+            Name: Ajay ranjan palai
+            Email: palaiajayranja@gmail.com
+            Phone: 7847808553
+            
+            Thank you for choosing RealEstate India!
+            

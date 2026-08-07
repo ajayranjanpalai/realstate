@@ -1,0 +1,31 @@
+
+            REALESTATE INDIA - BOOKING RECEIPT
+            ==================================
+            
+            Booking ID: 4
+            Date: 2025-11-05 16:03:59
+            
+            PROPERTY DETAILS:
+            ----------------
+            Title: Commercial BHK Plot in Andheri
+            Location: Andheri, Mumbai
+            Type: Plot
+            BHK: 0
+            Area: 2581 sqft
+            Furnishing: Unfurnished
+            Transaction Type: Resale
+            
+            PRICING:
+            --------
+            Total Price: Rs.4.34 Crores
+            Advance Amount: Rs.0.43 Crores
+            Balance Amount: Rs.3.91 Crores
+            
+            CUSTOMER DETAILS:
+            -----------------
+            Name: Ajay ranjan palai
+            Email: palaiajayranja@gmail.com
+            Phone: 7847808553
+            
+            Thank you for choosing RealEstate India!
+            

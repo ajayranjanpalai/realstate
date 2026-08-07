@@ -1,0 +1,30 @@
+
+            REALESTATE INDIA - BOOKING RECEIPT
+            ==================================
+            
+            Booking ID: BOOK_20251102103846
+            Date: 2025-11-02 10:38:46
+            
+            PROPERTY DETAILS:
+            ----------------
+            Title: Commercial BHK Villa in Bangalore
+            Location: Unknown, Bangalore
+            Type: Villa
+            BHK: N/A
+            Area: 1308 sqft
+            Furnishing: Semi Furnished
+            
+            PRICING:
+            --------
+            Total Price: Rs.1.05 Crores
+            Advance Amount: Rs.0.11 Crores
+            Balance Amount: Rs.0.94 Crores
+            
+            CUSTOMER DETAILS:
+            -----------------
+            Name: Ajay
+            Email: palai@gmai.com
+            Phone: 1234567891
+            
+            Thank you for choosing RealEstate India!
+            
