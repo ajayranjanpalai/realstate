@@ -20,20 +20,48 @@ try:
 except ImportError:
     HAS_MYSQL_CONNECTOR = False
 
+try:
+    import psycopg2
+    from psycopg2.extras import RealDictCursor
+    HAS_PSYCOPG2 = True
+except ImportError:
+    HAS_PSYCOPG2 = False
+
+
 class MySQLRealEstateDB:
     def __init__(self, host=None, user=None, password=None, database=None, port=None):
+        self.database_url = os.environ.get('DATABASE_URL') or os.environ.get('NEON_DATABASE_URL') or os.environ.get('POSTGRES_URL')
         self.host = host or os.environ.get('MYSQL_HOST', 'localhost')
         self.user = user or os.environ.get('MYSQL_USER', 'root')
         self.password = password or os.environ.get('MYSQL_PASSWORD', 'Ajay@2006')
         self.database = database or os.environ.get('MYSQL_DATABASE', 'real_estate_db')
         self.port = port or int(os.environ.get('MYSQL_PORT', 3306))
+        
+        self.db_type = 'sqlite'  # 'postgres', 'mysql', or 'sqlite'
         self.connection = None
-        self.use_sqlite = False
         
         self.connect()
 
     def connect(self):
-        """Establish database connection with automatic SQLite fallback"""
+        """Establish database connection (PostgreSQL / Neon -> MySQL -> SQLite fallback)"""
+        # 1. Try PostgreSQL / Neon if DATABASE_URL is set
+        if self.database_url and HAS_PSYCOPG2:
+            try:
+                # Replace postgres:// with postgresql:// if needed for SQLAlchemy/Psycopg2
+                db_url = self.database_url
+                if db_url.startswith("postgres://"):
+                    db_url = db_url.replace("postgres://", "postgresql://", 1)
+                
+                self.connection = psycopg2.connect(db_url, connect_timeout=5)
+                self.connection.autocommit = True
+                self.db_type = 'postgres'
+                print("✅ Connected to PostgreSQL / Neon database successfully")
+                self.init_postgres_tables()
+                return
+            except Exception as e:
+                print(f"⚠️ PostgreSQL connection failed ({self.database_url}): {e}")
+
+        # 2. Try MySQL if connector available
         if HAS_MYSQL_CONNECTOR:
             try:
                 self.connection = mysql.connector.connect(
@@ -44,15 +72,15 @@ class MySQLRealEstateDB:
                     port=self.port,
                     connection_timeout=3
                 )
-                self.use_sqlite = False
+                self.db_type = 'mysql'
                 print("✅ Connected to MySQL database successfully")
                 return
             except Exception as e:
                 print(f"⚠️ MySQL connection unavailable ({self.host}:{self.port}): {e}")
 
-        # Fallback to SQLite
-        print("🔄 Falling back to SQLite database for storage...")
-        self.use_sqlite = True
+        # 3. Fallback to SQLite
+        print("🔄 Using local SQLite database for storage...")
+        self.db_type = 'sqlite'
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         db_dir = os.path.join(base_dir, 'data')
         os.makedirs(db_dir, exist_ok=True)
@@ -62,8 +90,48 @@ class MySQLRealEstateDB:
         self.init_sqlite_tables()
         print(f"✅ Connected to SQLite database successfully at {db_path}")
 
+    @property
+    def use_sqlite(self):
+        return self.db_type == 'sqlite'
+
+    def init_postgres_tables(self):
+        """Initialize PostgreSQL / Neon tables"""
+        cursor = self.connection.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS users (
+                user_id SERIAL PRIMARY KEY,
+                username VARCHAR(255) UNIQUE NOT NULL,
+                password VARCHAR(255) NOT NULL,
+                email VARCHAR(255) UNIQUE NOT NULL,
+                phone VARCHAR(50),
+                full_name VARCHAR(255),
+                city VARCHAR(100),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS bookings (
+                booking_id SERIAL PRIMARY KEY,
+                user_id INT NOT NULL,
+                property_id VARCHAR(100),
+                property_title VARCHAR(255),
+                property_city VARCHAR(100),
+                property_locality VARCHAR(100),
+                property_type VARCHAR(100),
+                property_price NUMERIC(10,2),
+                property_area INT,
+                property_bhk INT,
+                booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                status VARCHAR(50) DEFAULT 'CONFIRMED',
+                amount_advance NUMERIC(10,2),
+                total_amount NUMERIC(10,2),
+                FOREIGN KEY (user_id) REFERENCES users(user_id)
+            );
+        ''')
+        cursor.close()
+
     def init_sqlite_tables(self):
-        """Initialize SQLite tables if using SQLite fallback"""
+        """Initialize SQLite tables"""
         cursor = self.connection.cursor()
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
@@ -101,8 +169,12 @@ class MySQLRealEstateDB:
 
     def get_connection(self):
         """Get active database connection"""
-        if self.use_sqlite:
+        if self.db_type == 'sqlite':
             if not self.connection:
+                self.connect()
+            return self.connection
+        elif self.db_type == 'postgres':
+            if not self.connection or self.connection.closed:
                 self.connect()
             return self.connection
         else:
@@ -130,7 +202,27 @@ class MySQLRealEstateDB:
         hashed_password = self.hash_password(password)
         conn = self.get_connection()
 
-        if self.use_sqlite:
+        if self.db_type == 'postgres':
+            cursor = conn.cursor(cursor_factory=RealDictCursor)
+            try:
+                cursor.execute('''
+                    INSERT INTO users (username, password, email, phone, full_name, city)
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                    RETURNING user_id
+                ''', (username, hashed_password, email, phone, full_name, city))
+                res = cursor.fetchone()
+                return res['user_id']
+            except Exception as e:
+                err_msg = str(e)
+                if 'username' in err_msg:
+                    raise Exception("Username already exists")
+                elif 'email' in err_msg:
+                    raise Exception("Email already exists")
+                else:
+                    raise Exception(f"User creation failed: {err_msg}")
+            finally:
+                cursor.close()
+        elif self.db_type == 'sqlite':
             cursor = conn.cursor()
             try:
                 cursor.execute('''
@@ -172,7 +264,18 @@ class MySQLRealEstateDB:
         hashed_password = self.hash_password(password)
         conn = self.get_connection()
 
-        if self.use_sqlite:
+        if self.db_type == 'postgres':
+            cursor = conn.cursor(cursor_factory=RealDictCursor)
+            try:
+                cursor.execute('''
+                    SELECT user_id, username, email, phone, full_name, city 
+                    FROM users WHERE username = %s AND password = %s
+                ''', (username, hashed_password))
+                res = cursor.fetchone()
+                return dict(res) if res else None
+            finally:
+                cursor.close()
+        elif self.db_type == 'sqlite':
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
             try:
@@ -199,7 +302,16 @@ class MySQLRealEstateDB:
         """Check if user exists"""
         conn = self.get_connection()
 
-        if self.use_sqlite:
+        if self.db_type == 'postgres':
+            cursor = conn.cursor()
+            try:
+                cursor.execute('''
+                    SELECT user_id FROM users WHERE username = %s OR email = %s
+                ''', (username, email))
+                return cursor.fetchone() is not None
+            finally:
+                cursor.close()
+        elif self.db_type == 'sqlite':
             cursor = conn.cursor()
             try:
                 cursor.execute('''
@@ -223,7 +335,16 @@ class MySQLRealEstateDB:
         hashed_password = self.hash_password(new_password)
         conn = self.get_connection()
 
-        if self.use_sqlite:
+        if self.db_type == 'postgres':
+            cursor = conn.cursor()
+            try:
+                cursor.execute('''
+                    UPDATE users SET password = %s WHERE user_id = %s
+                ''', (hashed_password, user_id))
+                return cursor.rowcount > 0
+            finally:
+                cursor.close()
+        elif self.db_type == 'sqlite':
             cursor = conn.cursor()
             try:
                 cursor.execute('''
@@ -248,7 +369,18 @@ class MySQLRealEstateDB:
         """Update user profile"""
         conn = self.get_connection()
 
-        if self.use_sqlite:
+        if self.db_type == 'postgres':
+            cursor = conn.cursor()
+            try:
+                cursor.execute('''
+                    UPDATE users 
+                    SET full_name = %s, email = %s, phone = %s, city = %s 
+                    WHERE user_id = %s
+                ''', (full_name, email, phone, city, user_id))
+                return cursor.rowcount > 0
+            finally:
+                cursor.close()
+        elif self.db_type == 'sqlite':
             cursor = conn.cursor()
             try:
                 cursor.execute('''
@@ -291,7 +423,24 @@ class MySQLRealEstateDB:
             float(total_amount)
         )
 
-        if self.use_sqlite:
+        if self.db_type == 'postgres':
+            cursor = conn.cursor(cursor_factory=RealDictCursor)
+            try:
+                cursor.execute('''
+                    INSERT INTO bookings (
+                        user_id, property_id, property_title, property_city, property_locality,
+                        property_type, property_price, property_area, property_bhk,
+                        amount_advance, total_amount
+                    ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    RETURNING booking_id
+                ''', params)
+                res = cursor.fetchone()
+                return res['booking_id']
+            except Exception as e:
+                raise Exception(f"Error creating booking: {str(e)}")
+            finally:
+                cursor.close()
+        elif self.db_type == 'sqlite':
             cursor = conn.cursor()
             try:
                 cursor.execute('''
@@ -330,7 +479,35 @@ class MySQLRealEstateDB:
         """Get user's bookings with full property details"""
         conn = self.get_connection()
 
-        if self.use_sqlite:
+        if self.db_type == 'postgres':
+            cursor = conn.cursor(cursor_factory=RealDictCursor)
+            try:
+                cursor.execute('''
+                    SELECT 
+                        booking_id, property_id, property_title, property_city, property_locality,
+                        property_type, property_price, property_area, property_bhk,
+                        booking_date, status, amount_advance, total_amount
+                    FROM bookings 
+                    WHERE user_id = %s
+                    ORDER BY booking_date DESC
+                ''', (user_id,))
+                rows = cursor.fetchall()
+                converted_bookings = []
+                for row in rows:
+                    booking = dict(row)
+                    for k, v in booking.items():
+                        if isinstance(v, Decimal):
+                            booking[k] = float(v)
+                        elif isinstance(v, datetime):
+                            booking[k] = v.isoformat()
+                    converted_bookings.append(booking)
+                return converted_bookings
+            except Exception as e:
+                print(f"❌ Error in get_user_bookings: {e}")
+                return []
+            finally:
+                cursor.close()
+        elif self.db_type == 'sqlite':
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
             try:
@@ -388,7 +565,31 @@ class MySQLRealEstateDB:
         """Get all properties for frontend display"""
         conn = self.get_connection()
 
-        if self.use_sqlite:
+        if self.db_type == 'postgres':
+            cursor = conn.cursor(cursor_factory=RealDictCursor)
+            try:
+                cursor.execute('''
+                    SELECT DISTINCT 
+                        property_id, property_title, property_city, property_locality,
+                        property_type, property_price, property_area, property_bhk
+                    FROM bookings 
+                    ORDER BY property_city, property_price
+                ''')
+                rows = cursor.fetchall()
+                converted_props = []
+                for row in rows:
+                    prop = dict(row)
+                    for k, v in prop.items():
+                        if isinstance(v, Decimal):
+                            prop[k] = float(v)
+                    converted_props.append(prop)
+                return converted_props
+            except Exception as e:
+                print(f"❌ Error in get_all_properties: {e}")
+                return []
+            finally:
+                cursor.close()
+        elif self.db_type == 'sqlite':
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
             try:
@@ -437,4 +638,4 @@ class MySQLRealEstateDB:
 
 if __name__ == "__main__":
     db = MySQLRealEstateDB()
-    print(f"✅ DB test complete. Using SQLite: {db.use_sqlite}")
+    print(f"✅ DB test complete. Active DB mode: {db.db_type}")
