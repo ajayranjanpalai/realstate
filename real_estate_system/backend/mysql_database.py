@@ -572,20 +572,22 @@ class MySQLRealEstateDB:
             cursor.execute(f"SELECT booking_id, property_id FROM bookings WHERE booking_id = {param_placeholder} OR booking_id = {param_placeholder}", (str(booking_id), numeric_id))
             row = cursor.fetchone()
             if not row:
-                return False, "Booking not found"
+                return False, "Booking not found", None
             
             real_booking_id = row['booking_id'] if isinstance(row, dict) else row[0]
+            property_id = row['property_id'] if isinstance(row, dict) else row[1]
+            
             cursor.execute(f"DELETE FROM bookings WHERE booking_id = {param_placeholder}", (real_booking_id,))
             conn.commit()
-            print(f"✅ Booking #{real_booking_id} cancelled successfully")
-            return True, "Booking cancelled successfully"
+            print(f"✅ Booking #{real_booking_id} cancelled successfully for property {property_id}")
+            return True, "Booking cancelled successfully", property_id
         except Exception as e:
             try:
                 conn.rollback()
             except:
                 pass
             print(f"❌ Error cancelling booking: {e}")
-            return False, f"Failed to cancel booking: {str(e)}"
+            return False, f"Failed to cancel booking: {str(e)}", None
         finally:
             try:
                 cursor.close()

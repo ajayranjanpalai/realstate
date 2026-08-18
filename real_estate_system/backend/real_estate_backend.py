@@ -560,12 +560,26 @@ class RealEstateBackend:
             return []
 
     def cancel_booking(self, booking_id):
-        """Cancel booking for logged-in user"""
+        """Cancel booking for logged-in user and restore property availability"""
         if not self.auth.is_logged_in():
             return False, "Please login first"
         try:
             user_id = self.auth.current_user['user_id']
-            return self.db.cancel_booking(booking_id, user_id)
+            res = self.db.cancel_booking(booking_id, user_id)
+            
+            if len(res) == 3:
+                success, msg, prop_id = res
+            else:
+                success, msg = res
+                prop_id = None
+
+            if success and prop_id:
+                if self.properties_df is not None:
+                    self.properties_df.loc[self.properties_df['PropertyID'] == prop_id, 'Available'] = True
+                self.update_csv_availability(prop_id, True)
+                print(f"✅ Restored availability for property {prop_id} after booking cancellation")
+            
+            return success, msg
         except Exception as e:
             print(f"❌ Error cancelling booking: {e}")
             return False, str(e)
