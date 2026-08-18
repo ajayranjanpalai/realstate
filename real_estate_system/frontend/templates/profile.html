@@ -298,7 +298,7 @@
                 <div class="stat-card">
                     <div class="stat-icon-box icon-box-teal"><i class="fas fa-bookmark"></i></div>
                     <div class="stat-info">
-                        <div id="profileBookingsCount" class="stat-value">4</div>
+                        <div id="profileBookingsCount" class="stat-value">0</div>
                         <div class="stat-label">Active Bookings</div>
                     </div>
                 </div>
@@ -365,13 +365,13 @@
 
     <script src="/static/js/main.js"></script>
     <script>
-        async function checkAuth() {
+        async function loadProfileData() {
             try {
                 const response = await fetch('/api/user');
                 const data = await response.json();
                 if (!data.success || !data.user) {
                     window.location.href = '/templates/login.html';
-                    return false;
+                    return;
                 }
                 const name = data.user.full_name || data.user.username || 'Ajay K.';
                 const email = data.user.email || 'ajay@example.com';
@@ -379,10 +379,16 @@
                 document.getElementById('profileEmail').textContent = email;
                 document.getElementById('inputName').value = name;
                 document.getElementById('inputEmail').value = email;
-                return true;
+
+                const bookingsRes = await fetch('/api/bookings');
+                const bookingsData = await bookingsRes.json();
+                if (bookingsData.success && bookingsData.bookings) {
+                    document.getElementById('profileBookingsCount').textContent = bookingsData.bookings.length;
+                } else {
+                    document.getElementById('profileBookingsCount').textContent = '0';
+                }
             } catch (error) {
                 window.location.href = '/templates/login.html';
-                return false;
             }
         }
 
@@ -400,7 +406,7 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', checkAuth);
+        document.addEventListener('DOMContentLoaded', loadProfileData);
     </script>
 </body>
 </html>
