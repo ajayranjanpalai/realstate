@@ -80,6 +80,16 @@ class RealEstateHandler(http.server.SimpleHTTPRequestHandler):
             self.handle_api_post()
         else:
             self.send_json_error(404, "Endpoint not found")
+
+    def do_DELETE(self):
+        """Handle DELETE requests"""
+        print(f"🔍 DELETE request: {self.path}")
+        if self.path.startswith('/api/bookings/'):
+            booking_id = self.path.split('/')[-1]
+            success, msg = self.backend.cancel_booking(booking_id)
+            self.send_json_response({'success': success, 'message': msg})
+        else:
+            self.send_json_error(404, "Endpoint not found")
     
     def handle_api_get(self):
         """Handle API GET requests"""
@@ -128,6 +138,10 @@ class RealEstateHandler(http.server.SimpleHTTPRequestHandler):
                 self.change_password(data)
             elif self.path == '/api/update-profile':
                 self.update_profile(data)
+            elif self.path == '/api/cancel_booking':
+                booking_id = data.get('booking_id')
+                success, msg = self.backend.cancel_booking(booking_id)
+                self.send_json_response({'success': success, 'message': msg})
             else:
                 self.send_json_error(404, "API endpoint not found")
         except json.JSONDecodeError:

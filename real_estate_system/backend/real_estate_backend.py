@@ -558,6 +558,17 @@ class RealEstateBackend:
         except Exception as e:
             print(f"❌ Error getting user bookings: {e}")
             return []
+
+    def cancel_booking(self, booking_id):
+        """Cancel booking for logged-in user"""
+        if not self.auth.is_logged_in():
+            return False, "Please login first"
+        try:
+            user_id = self.auth.current_user['user_id']
+            return self.db.cancel_booking(booking_id, user_id)
+        except Exception as e:
+            print(f"❌ Error cancelling booking: {e}")
+            return False, str(e)
     
     def analyze_properties(self):
         """Comprehensive property analysis"""

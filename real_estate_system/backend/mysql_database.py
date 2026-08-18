@@ -561,6 +561,31 @@ class MySQLRealEstateDB:
             finally:
                 cursor.close()
 
+    def cancel_booking(self, booking_id, user_id):
+        """Cancel/delete a user's booking and mark property as available again"""
+        conn = self.get_connection()
+        param_placeholder = '%s' if self.db_type in ['postgres', 'mysql'] else '?'
+        
+        cursor = conn.cursor()
+        try:
+            # Check if booking exists
+            cursor.execute(f"SELECT property_id FROM bookings WHERE booking_id = {param_placeholder} AND user_id = {param_placeholder}", (booking_id, user_id))
+            row = cursor.fetchone()
+            if not row:
+                return False, "Booking not found or not authorized"
+            
+            # Delete the booking
+            cursor.execute(f"DELETE FROM bookings WHERE booking_id = {param_placeholder} AND user_id = {param_placeholder}", (booking_id, user_id))
+            conn.commit()
+            print(f"✅ Booking #{booking_id} cancelled for user #{user_id}")
+            return True, "Booking cancelled successfully"
+        except Exception as e:
+            conn.rollback()
+            print(f"❌ Error cancelling booking: {e}")
+            return False, f"Failed to cancel booking: {str(e)}"
+        finally:
+            cursor.close()
+
     def get_all_properties(self):
         """Get all properties for frontend display"""
         conn = self.get_connection()
