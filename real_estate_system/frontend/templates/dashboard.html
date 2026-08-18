@@ -549,9 +549,9 @@
                         <i class="fas fa-calendar-check"></i>
                     </div>
                     <div class="stat-info">
-                        <div id="userBookings" class="stat-value">4</div>
+                        <div id="userBookings" class="stat-value">0</div>
                         <div class="stat-label">Your Bookings</div>
-                        <div class="stat-subtext" style="color: #64748B;">2 Pending</div>
+                        <div id="userBookingsSubtext" class="stat-subtext" style="color: #64748B;">0 Pending</div>
                     </div>
                 </div>
             </div>
@@ -649,8 +649,18 @@
                 const bookingsResponse = await fetch('/api/bookings');
                 const bookingsData = await bookingsResponse.json();
                 
-                if (bookingsData.success) {
-                    document.getElementById('userBookings').textContent = bookingsData.bookings.length;
+                if (bookingsData.success && bookingsData.bookings) {
+                    const list = bookingsData.bookings;
+                    document.getElementById('userBookings').textContent = list.length;
+                    let pendingCount = 0;
+                    list.forEach(b => {
+                        const status = (b.status || b.Status || '').toUpperCase();
+                        if (status.includes('PENDING')) pendingCount++;
+                    });
+                    document.getElementById('userBookingsSubtext').textContent = pendingCount > 0 ? `${pendingCount} Pending` : 'All Confirmed';
+                } else {
+                    document.getElementById('userBookings').textContent = '0';
+                    document.getElementById('userBookingsSubtext').textContent = '0 Pending';
                 }
 
                 const propertiesResponse = await fetch('/api/properties?limit=3');

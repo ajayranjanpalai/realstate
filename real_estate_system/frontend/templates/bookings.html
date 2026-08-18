@@ -467,6 +467,30 @@
             }
         }
 
+        function updateBookingStats(bookings) {
+            const list = bookings || [];
+            const total = list.length;
+            let confirmedCount = 0;
+            let pendingCount = 0;
+            let totalVal = 0;
+
+            list.forEach(b => {
+                const status = (b.status || b.Status || 'CONFIRMED').toUpperCase();
+                if (status.includes('PENDING')) {
+                    pendingCount++;
+                } else {
+                    confirmedCount++;
+                }
+                const price = parseFloat(b.total_amount || b.TotalAmount || b.property_price || b.PropertyPrice || b.Price_Cr || 0);
+                totalVal += price;
+            });
+
+            document.getElementById('statTotalBookings').textContent = total;
+            document.getElementById('statConfirmed').textContent = confirmedCount;
+            document.getElementById('statPending').textContent = pendingCount;
+            document.getElementById('statTotalValue').textContent = totalVal > 0 ? `₹${totalVal.toFixed(2)} Cr` : '₹0 Cr';
+        }
+
         async function loadBookings() {
             const isAuthenticated = await checkAuth();
             if (!isAuthenticated) return;
@@ -475,14 +499,17 @@
                 const response = await fetch('/api/bookings');
                 const data = await response.json();
 
-                if (data.success) {
-                    document.getElementById('statTotalBookings').textContent = data.bookings.length;
+                if (data.success && data.bookings) {
+                    updateBookingStats(data.bookings);
                     displayBookings(data.bookings);
                 } else {
-                    document.getElementById('bookingsList').innerHTML = '<p style="color: #94A3B8; font-size: 1.1rem; text-align: center; padding: 3rem;">No bookings found.</p>';
+                    updateBookingStats([]);
+                    displayBookings([]);
                 }
             } catch (error) {
                 console.error('Failed to load bookings:', error);
+                updateBookingStats([]);
+                displayBookings([]);
             }
         }
 
