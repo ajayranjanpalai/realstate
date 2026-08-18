@@ -3,37 +3,496 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - RealEstate India</title>
+    <title>RealEstate India - Dashboard</title>
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="stylesheet" href="/static/css/dashboard.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Exact Dashboard Mockup Styling */
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+            background-color: #0A192F !important;
+            color: #FFFFFF !important;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* SVG Dark Geometric Mesh Canvas Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(13, 148, 136, 0.15) 0%, transparent 45%),
+                linear-gradient(135deg, #040D1A 0%, #0A192F 50%, #061324 100%);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%2338bdf8' stroke-width='0.4' stroke-opacity='0.12'%3E%3Cpath d='M50 50L20 20M0 0l80 80M0 80L80 0M30 10l40 40M10 30l40 40'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header Navigation */
+        .navbar {
+            background: #06101E !important;
+            border-bottom: 1px solid #1E293B !important;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #FFFFFF !important;
+            text-decoration: none;
+            letter-spacing: -0.3px;
+        }
+
+        .nav-logo i {
+            color: #2563EB;
+            font-size: 1.35rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav-link {
+            color: #94A3B8 !important;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: #FFFFFF !important;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active {
+            background: #1D4ED8 !important;
+            color: #FFFFFF !important;
+            font-weight: 700;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .btn-nav-logout {
+            background: transparent !important;
+            border: 1px solid rgba(59, 130, 246, 0.5) !important;
+            color: #93C5FD !important;
+            padding: 0.4rem 0.9rem !important;
+            border-radius: 8px !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-nav-logout:hover {
+            background: rgba(37, 99, 235, 0.2) !important;
+            color: #FFFFFF !important;
+        }
+
+        .nav-icon-bell {
+            position: relative;
+            color: #94A3B8;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .bell-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 7px;
+            height: 7px;
+            background-color: #EF4444;
+            border-radius: 50%;
+        }
+
+        .nav-user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: #FFFFFF;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .user-avatar-img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #38BDF8;
+        }
+
+        /* Main Content Layout */
+        .main-content {
+            flex: 1;
+            max-width: 1320px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 4rem 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .hero-banner {
+            text-align: center;
+            margin-bottom: 2.25rem;
+        }
+
+        .hero-banner h1 {
+            font-size: 2.25rem !important;
+            font-weight: 800 !important;
+            color: #FFFFFF !important;
+            letter-spacing: -0.5px;
+            margin: 0 0 0.4rem 0;
+        }
+
+        .hero-banner p {
+            color: #94A3B8 !important;
+            font-size: 1.05rem !important;
+            font-weight: 500 !important;
+            margin: 0;
+        }
+
+        /* Stat Cards Row */
+        .stats-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 1.25rem !important;
+            margin-bottom: 2.5rem !important;
+        }
+
+        .stat-card {
+            background: #FFFFFF !important;
+            border-radius: 16px !important;
+            padding: 1.35rem 1.5rem !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 1.25rem !important;
+            color: #0F172A !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.22) !important;
+        }
+
+        .stat-icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            flex-shrink: 0;
+        }
+
+        .icon-box-blue { background: #DBEAFE !important; color: #1D4ED8 !important; }
+        .icon-box-teal { background: #CCFBF1 !important; color: #0F766E !important; }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 1.75rem !important;
+            font-weight: 800 !important;
+            color: #0F172A !important;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            color: #64748B !important;
+            margin-top: 0.15rem;
+        }
+
+        .stat-subtext {
+            font-size: 0.775rem !important;
+            font-weight: 700 !important;
+            margin-top: 0.35rem;
+        }
+
+        .subtext-green { color: #16A34A !important; }
+        .subtext-blue-pill {
+            background: #EFF6FF !important;
+            color: #1D4ED8 !important;
+            padding: 0.15rem 0.5rem !important;
+            border-radius: 6px !important;
+            display: inline-block;
+        }
+
+        /* Quick Actions Section */
+        .quick-actions-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-heading-white {
+            font-size: 1.35rem !important;
+            font-weight: 800 !important;
+            color: #FFFFFF !important;
+            margin-bottom: 1.25rem !important;
+            letter-spacing: -0.3px;
+        }
+
+        .action-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 1.25rem !important;
+        }
+
+        .action-card {
+            background: #FFFFFF !important;
+            border-radius: 14px !important;
+            padding: 1.1rem 1.35rem !important;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15) !important;
+            text-decoration: none !important;
+            color: #0F172A !important;
+            font-weight: 700 !important;
+            font-size: 0.975rem !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.85rem !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .action-card:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22) !important;
+            color: #1D4ED8 !important;
+        }
+
+        .action-icon-box {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: #F1F5F9;
+            color: #0F172A;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            transition: all 0.2s ease;
+        }
+
+        .action-card:hover .action-icon-box {
+            background: #1D4ED8;
+            color: #FFFFFF;
+        }
+
+        /* Featured Listings Section */
+        .featured-section {
+            margin-bottom: 2rem;
+        }
+
+        .properties-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 1.5rem !important;
+        }
+
+        .property-card {
+            background: #FFFFFF !important;
+            border-radius: 16px !important;
+            overflow: hidden !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .property-card:hover {
+            transform: translateY(-4px) !important;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25) !important;
+        }
+
+        .property-image {
+            width: 100% !important;
+            height: 210px !important;
+            background-size: cover !important;
+            background-position: center !important;
+            position: relative !important;
+            padding: 0.85rem !important;
+            box-sizing: border-box !important;
+        }
+
+        .property-badges-overlay {
+            position: absolute;
+            top: 0.85rem;
+            left: 0.85rem;
+            display: flex;
+            gap: 0.35rem;
+        }
+
+        .tag-badge {
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            font-size: 0.725rem;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        .tag-sale { background: #DCFCE7 !important; color: #15803D !important; }
+        .tag-new { background: #DBEAFE !important; color: #1E40AF !important; }
+        .tag-ready { background: #CCFBF1 !important; color: #0F766E !important; }
+        .tag-hot { background: #FEE2E2 !important; color: #B91C1C !important; }
+
+        .property-content {
+            padding: 1.35rem !important;
+            display: flex !important;
+            flex-direction: column !important;
+            flex-grow: 1 !important;
+            color: #0F172A !important;
+        }
+
+        .property-title {
+            font-size: 1.1rem !important;
+            font-weight: 800 !important;
+            color: #0F172A !important;
+            margin: 0 0 0.75rem 0 !important;
+            line-height: 1.35 !important;
+        }
+
+        .property-price-specs {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            margin-bottom: 1.25rem !important;
+        }
+
+        .property-price-large {
+            font-size: 1.35rem !important;
+            font-weight: 800 !important;
+            color: #0F172A !important;
+        }
+
+        .property-specs-inline {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.65rem !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            color: #64748B !important;
+        }
+
+        .btn-card-details {
+            width: 100% !important;
+            background: #1D4ED8 !important;
+            color: #FFFFFF !important;
+            border: none !important;
+            padding: 0.75rem 1rem !important;
+            border-radius: 8px !important;
+            font-size: 0.925rem !important;
+            font-weight: 700 !important;
+            cursor: pointer !important;
+            text-align: center !important;
+            text-decoration: none !important;
+            display: block !important;
+            transition: all 0.2s ease !important;
+            box-sizing: border-box !important;
+        }
+
+        .btn-card-details:hover {
+            background: #1E40AF !important;
+        }
+
+        /* Dark Footer Bar */
+        .site-footer {
+            background: #050C18 !important;
+            border-top: 1px solid #1E293B !important;
+            padding: 1.25rem 0 !important;
+            margin-top: auto !important;
+        }
+
+        .footer-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #94A3B8;
+        }
+
+        .footer-right {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-right a {
+            color: #94A3B8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-right a:hover { color: #FFFFFF; }
+
+        @media (max-width: 992px) {
+            .stats-grid, .action-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .properties-grid { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-building"></i>
+            <a href="/templates/dashboard.html" class="nav-logo">
+                <i class="fas fa-home"></i>
                 <span>RealEstate India</span>
-            </div>
+            </a>
             <div class="nav-menu">
-                <a href="/templates/dashboard.html" class="nav-link active">
-                    <i class="fas fa-home"></i> Dashboard
-                </a>
-                <a href="/templates/properties.html" class="nav-link">
-                    <i class="fas fa-search"></i> Properties
-                </a>
-                <a href="/templates/bookings.html" class="nav-link">
-                    <i class="fas fa-calendar-check"></i> My Bookings
-                </a>
-                <a href="/templates/analysis.html" class="nav-link">
-                    <i class="fas fa-chart-bar"></i> Analysis
-                </a>
-                <a href="/templates/profile.html" class="nav-link">
-                    <i class="fas fa-user"></i> Profile
-                </a>
-                <button class="btn-logout" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
+                <a href="/templates/dashboard.html" class="nav-link active">Home</a>
+                <a href="/templates/properties.html" class="nav-link">Explore Properties</a>
+                <a href="/templates/bookings.html" class="nav-link">My Bookings</a>
+                <a href="/templates/analysis.html" class="nav-link">Analytics</a>
+                <a href="/templates/profile.html" class="nav-link">Profile</a>
+            </div>
+            <div class="nav-right">
+                <button class="btn-nav-logout" onclick="logout()">Logout</button>
             </div>
         </div>
     </nav>
@@ -46,126 +505,128 @@
         </div>
 
         <div id="mainContent">
-            <div class="dashboard-header">
+            <div class="hero-banner">
                 <h1>Welcome to Your Dashboard</h1>
                 <p>Manage your properties and bookings efficiently</p>
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon">
+                    <div class="stat-icon-box icon-box-blue">
                         <i class="fas fa-building"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 id="totalProperties">0</h3>
-                        <p>Total Properties</p>
+                        <div id="totalProperties" class="stat-value">14,528</div>
+                        <div class="stat-label">Total Properties</div>
+                        <div class="stat-subtext subtext-green"><i class="fas fa-arrow-up"></i> +4.2% (MoM)</div>
                     </div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon">
+                    <div class="stat-icon-box icon-box-teal">
                         <i class="fas fa-rupee-sign"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 id="avgPrice">₹0 Cr</h3>
-                        <p>Average Price</p>
+                        <div id="avgPrice" class="stat-value">₹1.07 Cr</div>
+                        <div class="stat-label">Average Price</div>
+                        <div class="stat-subtext subtext-green"><i class="fas fa-arrow-up"></i> +0.8% (Cr)</div>
                     </div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon">
+                    <div class="stat-icon-box icon-box-blue">
                         <i class="fas fa-city"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 id="totalCities">0</h3>
-                        <p>Cities Covered</p>
+                        <div id="totalCities" class="stat-value">8</div>
+                        <div class="stat-label">Cities Covered</div>
+                        <div class="stat-subtext"><span class="subtext-blue-pill">Leader: Mumbai</span></div>
                     </div>
                 </div>
 
                 <div class="stat-card">
-                    <div class="stat-icon">
+                    <div class="stat-icon-box icon-box-blue">
                         <i class="fas fa-calendar-check"></i>
                     </div>
                     <div class="stat-info">
-                        <h3 id="userBookings">0</h3>
-                        <p>Your Bookings</p>
+                        <div id="userBookings" class="stat-value">4</div>
+                        <div class="stat-label">Your Bookings</div>
+                        <div class="stat-subtext" style="color: #64748B;">2 Pending</div>
                     </div>
                 </div>
             </div>
 
-            <div class="quick-actions">
-                <h2>Quick Actions</h2>
+            <div class="quick-actions-section">
+                <h2 class="section-heading-white">Quick Actions</h2>
                 <div class="action-grid">
                     <a href="/templates/properties.html" class="action-card">
-                        <i class="fas fa-search"></i>
-                        <h3>Browse Properties</h3>
-                        <p>Find your dream property</p>
+                        <div class="action-icon-box"><i class="fas fa-search"></i></div>
+                        <span>Browse Properties</span>
                     </a>
 
                     <a href="/templates/bookings.html" class="action-card">
-                        <i class="fas fa-calendar-check"></i>
-                        <h3>View Bookings</h3>
-                        <p>Check your booking history</p>
+                        <div class="action-icon-box"><i class="fas fa-calendar-check"></i></div>
+                        <span>View Bookings</span>
                     </a>
 
                     <a href="/templates/analysis.html" class="action-card">
-                        <i class="fas fa-chart-bar"></i>
-                        <h3>Market Analysis</h3>
-                        <p>View property insights</p>
+                        <div class="action-icon-box"><i class="fas fa-chart-bar"></i></div>
+                        <span>Market Analysis</span>
                     </a>
 
                     <a href="/templates/profile.html" class="action-card">
-                        <i class="fas fa-user-cog"></i>
-                        <h3>Update Profile</h3>
-                        <p>Manage your account</p>
+                        <div class="action-icon-box"><i class="fas fa-user-cog"></i></div>
+                        <span>Update Profile</span>
                     </a>
                 </div>
             </div>
 
-            <div class="recent-properties">
+            <div class="featured-section">
+                <h2 class="section-heading-white">Featured Property Listings</h2>
                 <div id="featuredProperties" class="properties-grid">
-                    <!-- Properties will be loaded here -->
+                    <!-- Properties loaded dynamically -->
                 </div>
             </div>
         </div>
     </main>
 
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                RealEstate India | &copy; 2026 | Jatni, Odisha
+            </div>
+            <div class="footer-right">
+                <a href="/templates/dashboard.html">Home</a>
+                <a href="/templates/properties.html">Links</a>
+                <a href="/templates/analysis.html">Cambra</a>
+                <a href="/templates/profile.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        // Check authentication on page load
         async function checkAuth() {
             try {
                 const response = await fetch('/api/user');
                 const data = await response.json();
                 
                 if (!data.success || !data.user) {
-                    // Not logged in, show error and redirect
                     document.getElementById('authCheck').style.display = 'block';
                     document.getElementById('mainContent').style.display = 'none';
-                    
-                    setTimeout(() => {
-                        window.location.href = '/templates/login.html';
-                    }, 2000);
+                    setTimeout(() => { window.location.href = '/templates/login.html'; }, 2000);
                     return false;
                 }
                 
-                // User is logged in, show main content
                 document.getElementById('authCheck').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
-                
-                // Update user info in UI if needed
                 if (data.user) {
-                    console.log('Logged in as:', data.user.username);
+                    const nameEl = document.getElementById('navUserName');
+                    if (nameEl) nameEl.textContent = data.user.full_name || data.user.username || 'Aisha K.';
                 }
-                
                 return true;
             } catch (error) {
                 console.error('Auth check failed:', error);
-                document.getElementById('authCheck').style.display = 'block';
-                document.getElementById('mainContent').style.display = 'none';
-                
-                setTimeout(() => {
-                    window.location.href = '/templates/login.html';
-                }, 2000);
+                window.location.href = '/templates/login.html';
                 return false;
             }
         }
@@ -175,20 +636,16 @@
             if (!isAuthenticated) return;
 
             try {
-                // Load analysis data for stats
                 const analysisResponse = await fetch('/api/analysis');
                 const analysisData = await analysisResponse.json();
                 
                 if (analysisData.success) {
                     const stats = analysisData.analysis.basic_stats;
-                    
-                    // Update stat cards
                     document.getElementById('totalProperties').textContent = stats.total_properties.toLocaleString();
                     document.getElementById('avgPrice').textContent = `₹${stats.average_price} Cr`;
                     document.getElementById('totalCities').textContent = stats.cities_covered;
                 }
 
-                // Load user bookings count
                 const bookingsResponse = await fetch('/api/bookings');
                 const bookingsData = await bookingsResponse.json();
                 
@@ -196,8 +653,7 @@
                     document.getElementById('userBookings').textContent = bookingsData.bookings.length;
                 }
 
-                // Load featured properties
-                const propertiesResponse = await fetch('/api/properties?limit=6');
+                const propertiesResponse = await fetch('/api/properties?limit=3');
                 const propertiesData = await propertiesResponse.json();
                 
                 if (propertiesData.success) {
@@ -206,6 +662,29 @@
             } catch (error) {
                 console.error('Failed to load dashboard data:', error);
             }
+        }
+
+        function getPropertyImage(property) {
+            if (!property) return '/static/images/apartment_1.jpg';
+            const type = (property.Type || '').toLowerCase();
+            const title = (property.Title || '').toLowerCase();
+            const bhk = parseInt(property.BHK || 0);
+            const propId = property.PropertyID || '';
+            
+            let hash = 0;
+            for (let i = 0; i < propId.length; i++) {
+                hash = (hash << 5) - hash + propId.charCodeAt(i);
+                hash |= 0;
+            }
+            const altIndex = Math.abs(hash) % 2;
+
+            if (type.includes('villa') || title.includes('house') || title.includes('villa')) {
+                return altIndex === 0 ? '/static/images/villa_1.jpg' : '/static/images/villa_2.jpg';
+            }
+            if (bhk === 2 || bhk === 1) {
+                return altIndex === 0 ? '/static/images/bhk2_1.jpg' : '/static/images/apartment_1.jpg';
+            }
+            return altIndex === 0 ? '/static/images/apartment_1.jpg' : '/static/images/apartment_2.jpg';
         }
 
         function displayFeaturedProperties(properties) {
@@ -217,44 +696,27 @@
                 return;
             }
 
-            container.innerHTML = properties.slice(0, 6).map(property => `
-                <div class="property-card">
-                    <div class="property-image">
-                        <i class="fas fa-home"></i>
+            container.innerHTML = properties.slice(0, 3).map((property, idx) => {
+                return `
+                    <div class="property-card">
+                        <div class="property-image" style="background-image: url('${getPropertyImage(property)}');"></div>
+                        <div class="property-content">
+                            <h3 class="property-title">${property.Title}</h3>
+                            <div class="property-price-specs">
+                                <div class="property-price-large">₹${property.Price_Cr} Cr</div>
+                                <div class="property-specs-inline">
+                                    <span><i class="fas fa-bed"></i> ${property.BHK || 3}B</span>
+                                    <span><i class="fas fa-bath"></i> ${property.Baths || 3}B</span>
+                                    <span><i class="fas fa-vector-square"></i> ${property.Area_sqft}sqft</span>
+                                </div>
+                            </div>
+                            <button class="btn-card-details" onclick="viewProperty('${property.PropertyID}')">
+                                View Details
+                            </button>
+                        </div>
                     </div>
-                    <div class="property-content">
-                        <h3 class="property-title">${property.Title}</h3>
-                        <div class="property-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            ${property.Locality}, ${property.City}
-                        </div>
-                        <div class="property-details">
-                            <div class="property-detail">
-                                <i class="fas fa-expand-arrows-alt"></i>
-                                ${property.Area_sqft.toLocaleString()} sqft
-                            </div>
-                            <div class="property-detail">
-                                <i class="fas fa-door-closed"></i>
-                                ${property.BHK > 0 ? property.BHK + ' BHK' : 'Commercial'}
-                            </div>
-                            <div class="property-detail">
-                                <i class="fas fa-building"></i>
-                                ${property.Type}
-                            </div>
-                            <div class="property-detail">
-                                <i class="fas fa-paint-brush"></i>
-                                ${property.Furnishing}
-                            </div>
-                        </div>
-                        <div class="property-price">
-                            ₹${property.Price_Cr} Crores
-                        </div>
-                        <button class="btn-primary" onclick="viewProperty('${property.PropertyID}')">
-                            <i class="fas fa-eye"></i> View Details
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function viewProperty(propertyId) {
@@ -264,21 +726,13 @@
 
         async function logout() {
             try {
-                const response = await fetch('/api/logout', {
-                    method: 'POST'
-                });
-                const result = await response.json();
-                
-                if (result.success) {
-                    window.location.href = '/templates/login.html';
-                }
+                await fetch('/api/logout', { method: 'POST' });
+                window.location.href = '/templates/login.html';
             } catch (error) {
-                console.error('Logout failed:', error);
                 window.location.href = '/templates/login.html';
             }
         }
 
-        // Load dashboard data when page loads
         document.addEventListener('DOMContentLoaded', loadDashboardData);
     </script>
 </body>

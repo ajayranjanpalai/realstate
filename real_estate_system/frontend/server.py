@@ -39,30 +39,30 @@ class RealEstateHandler(http.server.SimpleHTTPRequestHandler):
         if self.path.startswith('/api/'):
             self.handle_api_get()
         else:
-            if self.path == '/':
+            clean_path = self.path.split('?')[0]
+            if clean_path in ['/', '']:
                 self.path = '/templates/login.html'
-            elif self.path == '/dashboard':
+            elif clean_path == '/dashboard':
                 self.path = '/templates/dashboard.html'
-            elif self.path == '/properties':
+            elif clean_path == '/properties':
                 self.path = '/templates/properties.html'
-            elif self.path == '/bookings':
+            elif clean_path == '/bookings':
                 self.path = '/templates/bookings.html'
-            elif self.path == '/profile':
+            elif clean_path == '/profile':
                 self.path = '/templates/profile.html'
-            elif self.path == '/analysis':
+            elif clean_path == '/analysis':
                 self.path = '/templates/analysis.html'
-            
-            if self.path.startswith('/static/'):
-                file_path = '.' + self.path
+            elif clean_path in ['/property-detail', '/templates/property_detail.html']:
+                self.path = '/templates/property_detail.html'
             else:
-                file_path = '.' + self.path
+                self.path = clean_path
             
+            file_path = os.path.join(self.directory, self.path.lstrip('/'))
             print(f"📁 Serving file: {file_path}")
             
             # Check if file exists
             if not os.path.exists(file_path):
                 print(f"❌ File not found: {file_path}")
-                # 404
                 if self.path.startswith('/api/'):
                     self.send_json_error(404, "API endpoint not found")
                     return
@@ -86,6 +86,8 @@ class RealEstateHandler(http.server.SimpleHTTPRequestHandler):
         try:
             if self.path == '/api/user':
                 self.get_current_user()
+            elif self.path.startswith('/api/property?'):
+                self.get_single_property()
             elif self.path.startswith('/api/properties'):
                 self.get_properties()
             elif self.path == '/api/cities':
@@ -193,6 +195,29 @@ class RealEstateHandler(http.server.SimpleHTTPRequestHandler):
                 'message': f'Failed to load properties: {str(e)}',
                 'properties': []
             })
+
+    def get_single_property(self):
+        """Get single property by ID"""
+        try:
+            parsed_path = urllib.parse.urlparse(self.path)
+            query_params = urllib.parse.parse_qs(parsed_path.query)
+            prop_id = query_params.get('id', [None])[0]
+            
+            if not prop_id:
+                self.send_json_error(400, "Property ID is required")
+                return
+            
+            property_data = self.backend.get_property_by_id(prop_id)
+            if property_data:
+                self.send_json_response({
+                    'success': True,
+                    'property': property_data
+                })
+            else:
+                self.send_json_error(404, "Property not found")
+        except Exception as e:
+            print(f"❌ Error getting single property: {e}")
+            self.send_json_error(500, f"Error: {str(e)}")
     
     def get_cities(self):
         """Get available cities"""

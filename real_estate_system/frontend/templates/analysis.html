@@ -3,36 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market Analysis - RealEstate India</title>
+    <title>Analytics - RealEstate India</title>
     <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+            background-color: #0A192F !important;
+            color: #FFFFFF !important;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Dark Navigation Bar Header (Matching Image 1) */
+        .navbar {
+            background: #06101E !important;
+            border-bottom: 1px solid #1E293B !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+        }
+
+        .nav-container {
+            max-width: 1320px !important;
+            margin: 0 auto !important;
+            padding: 0.75rem 1.5rem !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+        }
+
+        .nav-logo {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.6rem !important;
+            font-size: 1.25rem !important;
+            font-weight: 800 !important;
+            color: #FFFFFF !important;
+            text-decoration: none !important;
+            letter-spacing: -0.3px !important;
+        }
+
+        .nav-logo i {
+            color: #2563EB !important;
+            font-size: 1.35rem !important;
+        }
+
+        .nav-menu {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.4rem !important;
+        }
+
+        .nav-link {
+            color: #94A3B8 !important;
+            text-decoration: none !important;
+            font-size: 0.9rem !important;
+            font-weight: 600 !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 8px !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .nav-link:hover {
+            color: #FFFFFF !important;
+            background: rgba(255, 255, 255, 0.05) !important;
+        }
+
+        .nav-link.active {
+            background: #2563EB !important;
+            color: #FFFFFF !important;
+            font-weight: 700 !important;
+        }
+
+        .btn-nav-logout {
+            background: transparent !important;
+            border: 1px solid rgba(59, 130, 246, 0.5) !important;
+            color: #93C5FD !important;
+            padding: 0.4rem 0.9rem !important;
+            border-radius: 8px !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+        }
+
+        .btn-nav-logout:hover {
+            background: rgba(37, 99, 235, 0.2) !important;
+            color: #FFFFFF !important;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(13, 148, 136, 0.15) 0%, transparent 45%),
+                linear-gradient(135deg, #040D1A 0%, #0A192F 50%, #061324 100%);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%2338bdf8' stroke-width='0.4' stroke-opacity='0.12'%3E%3Cpath d='M50 50L20 20M0 0l80 80M0 80L80 0M30 10l40 40M10 30l40 40'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Stat KPI Cards matching Dashboard */
+        .stats-grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 1.25rem !important;
+            margin-bottom: 2.5rem !important;
+        }
+
+        .stat-card {
+            background: #FFFFFF !important;
+            border-radius: 16px !important;
+            padding: 1.35rem 1.5rem !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18) !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 1.25rem !important;
+            color: #0F172A !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25) !important;
+        }
+
+        .stat-icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            flex-shrink: 0;
+        }
+
+        .icon-box-blue { background: #DBEAFE !important; color: #1D4ED8 !important; }
+        .icon-box-teal { background: #CCFBF1 !important; color: #0F766E !important; }
+
+        .stat-info { display: flex; flex-direction: column; }
+        .stat-value { font-size: 1.75rem !important; font-weight: 800 !important; color: #0F172A !important; line-height: 1.15; }
+        .stat-label { font-size: 0.85rem !important; font-weight: 600 !important; color: #64748B !important; margin-top: 0.15rem; }
+        .stat-subtext { font-size: 0.775rem !important; font-weight: 700 !important; margin-top: 0.35rem; }
+        .subtext-green { color: #16A34A !important; }
+        .subtext-blue-pill { background: #EFF6FF !important; color: #1D4ED8 !important; padding: 0.15rem 0.5rem !important; border-radius: 6px !important; display: inline-block; }
+
+        /* Section Headings & Charts */
+        .section-heading-white {
+            font-size: 1.35rem !important;
+            font-weight: 800 !important;
+            color: #FFFFFF !important;
+            margin-bottom: 1.25rem !important;
+            letter-spacing: -0.3px;
+        }
+
+        .chart-card {
+            background: #FFFFFF !important;
+            border-radius: 16px !important;
+            padding: 1.75rem 2rem !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18) !important;
+            margin-bottom: 2rem !important;
+            color: #0F172A !important;
+            transition: all 0.25s ease !important;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-3px) !important;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25) !important;
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0F172A;
+            margin-bottom: 1.25rem;
+        }
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .stats-grid, .charts-row { grid-template-columns: 1fr !important; }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-building"></i>
+            <a href="/templates/dashboard.html" class="nav-logo">
+                <i class="fas fa-home"></i>
                 <span>RealEstate India</span>
-            </div>
+            </a>
             <div class="nav-menu">
-                <a href="/templates/dashboard.html" class="nav-link">
-                    <i class="fas fa-home"></i> Dashboard
-                </a>
-                <a href="/templates/properties.html" class="nav-link">
-                    <i class="fas fa-search"></i> Properties
-                </a>
-                <a href="/templates/bookings.html" class="nav-link">
-                    <i class="fas fa-calendar-check"></i> My Bookings
-                </a>
-                <a href="/templates/analysis.html" class="nav-link active">
-                    <i class="fas fa-chart-bar"></i> Analysis
-                </a>
-                <a href="/templates/profile.html" class="nav-link">
-                    <i class="fas fa-user"></i> Profile
-                </a>
-                <button class="btn-logout" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </button>
+                <a href="/templates/dashboard.html" class="nav-link">Home</a>
+                <a href="/templates/properties.html" class="nav-link">Explore Properties</a>
+                <a href="/templates/bookings.html" class="nav-link">My Bookings</a>
+                <a href="/templates/analysis.html" class="nav-link active">Analytics</a>
+                <a href="/templates/profile.html" class="nav-link">Profile</a>
+            </div>
+            <div class="nav-right">
+                <button class="btn-nav-logout" onclick="logout()">Logout</button>
             </div>
         </div>
     </nav>
@@ -44,480 +233,171 @@
             </div>
         </div>
 
-        <div id="mainContent" style="display: none;">
-            <div class="dashboard-header">
-                <h1>Market Analysis</h1>
-                <p>Comprehensive insights into property market trends</p>
+        <div id="mainContent">
+            <div class="hero-banner">
+                <h1>Market Analytics & Trends</h1>
+                <p>Comprehensive insights and property trends across major Indian real estate markets</p>
             </div>
 
-            <div id="message" class="message"></div>
-
-            <div class="analysis-content">
-                <!-- Summary Statistics -->
-                <div class="analysis-section">
-                    <h2><i class="fas fa-chart-line"></i> Market Overview</h2>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-building"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="totalProperties">0</h3>
-                                <p>Total Properties</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-rupee-sign"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="avgPrice">₹0 Cr</h3>
-                                <p>Average Price</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-city"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="totalCities">0</h3>
-                                <p>Cities Covered</p>
-                            </div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-home"></i>
-                            </div>
-                            <div class="stat-info">
-                                <h3 id="propertyTypes">0</h3>
-                                <p>Property Types</p>
-                            </div>
-                        </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon-box icon-box-blue"><i class="fas fa-building"></i></div>
+                    <div class="stat-info">
+                        <div id="totalProperties" class="stat-value">14,528</div>
+                        <div class="stat-label">Total Properties</div>
+                        <div class="stat-subtext subtext-green"><i class="fas fa-arrow-up"></i> +4.2% (MoM)</div>
                     </div>
                 </div>
 
-                <!-- City-wise Analysis -->
-                <div class="analysis-section">
-                    <h2><i class="fas fa-map-marker-alt"></i> City-wise Analysis</h2>
-                    <div id="cityAnalysis" class="city-grid">
-                        <div class="loading-placeholder">
-                            <div class="loading"></div>
-                            <p>Loading city analysis...</p>
-                        </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box icon-box-teal"><i class="fas fa-rupee-sign"></i></div>
+                    <div class="stat-info">
+                        <div id="avgPrice" class="stat-value">₹1.07 Cr</div>
+                        <div class="stat-label">Average Price</div>
+                        <div class="stat-subtext subtext-green"><i class="fas fa-arrow-up"></i> +0.8% (Cr)</div>
                     </div>
                 </div>
 
-                <!-- Property Type Analysis -->
-                <div class="analysis-section">
-                    <h2><i class="fas fa-building"></i> Property Type Analysis</h2>
-                    <div id="typeAnalysis" class="type-grid">
-                        <div class="loading-placeholder">
-                            <div class="loading"></div>
-                            <p>Loading type analysis...</p>
-                        </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box icon-box-blue"><i class="fas fa-city"></i></div>
+                    <div class="stat-info">
+                        <div id="totalCities" class="stat-value">8</div>
+                        <div class="stat-label">Cities Covered</div>
+                        <div class="stat-subtext"><span class="subtext-blue-pill">Leader: Mumbai</span></div>
                     </div>
                 </div>
 
-                <!-- Price Range Analysis -->
-                <div class="analysis-section">
-                    <h2><i class="fas fa-tags"></i> Price Range Analysis</h2>
-                    <div class="price-ranges">
-                        <div class="price-range-card">
-                            <h4>Budget Properties</h4>
-                            <div class="price-range-info">
-                                <span class="price-range">₹0.5 - 1.5 Cr</span>
-                                <span class="property-count" id="budgetCount">0 properties</span>
-                            </div>
-                        </div>
-                        <div class="price-range-card">
-                            <h4>Mid-Range Properties</h4>
-                            <div class="price-range-info">
-                                <span class="price-range">₹1.5 - 3 Cr</span>
-                                <span class="property-count" id="midRangeCount">0 properties</span>
-                            </div>
-                        </div>
-                        <div class="price-range-card">
-                            <h4>Premium Properties</h4>
-                            <div class="price-range-info">
-                                <span class="price-range">₹3+ Cr</span>
-                                <span class="property-count" id="premiumCount">0 properties</span>
-                            </div>
-                        </div>
+                <div class="stat-card">
+                    <div class="stat-icon-box icon-box-blue"><i class="fas fa-chart-pie"></i></div>
+                    <div class="stat-info">
+                        <div class="stat-value">2</div>
+                        <div class="stat-label">Property Types</div>
+                        <div class="stat-subtext" style="color: #64748B;">Apartment & Villa</div>
                     </div>
+                </div>
+            </div>
+
+            <h2 class="section-heading-white">Market Performance & Distribution</h2>
+            <div class="charts-row">
+                <div class="chart-card">
+                    <h3 class="chart-title">Properties Distribution by City</h3>
+                    <canvas id="cityChart" height="220"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <h3 class="chart-title">Property Types Breakdown</h3>
+                    <canvas id="typeChart" height="220"></canvas>
                 </div>
             </div>
         </div>
     </main>
 
-    <script>
-        let analysisData = null;
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                RealEstate India | &copy; 2026 | Jatni, Odisha
+            </div>
+            <div class="footer-right">
+                <a href="/templates/dashboard.html">Home</a>
+                <a href="/templates/properties.html">Links</a>
+                <a href="/templates/analysis.html">Cambra</a>
+                <a href="/templates/profile.html">Contact</a>
+            </div>
+        </div>
+    </footer>
 
-        // Check authentication on page load
+    <script src="/static/js/main.js"></script>
+    <script>
         async function checkAuth() {
             try {
-                showMessage('Checking authentication...', 'info');
                 const response = await fetch('/api/user');
                 const data = await response.json();
-                
                 if (!data.success || !data.user) {
-                    document.getElementById('authCheck').style.display = 'block';
-                    document.getElementById('mainContent').style.display = 'none';
-                    showMessage('Please login to view analysis', 'error');
-                    
-                    setTimeout(() => {
-                        window.location.href = '/templates/login.html';
-                    }, 2000);
+                    window.location.href = '/templates/login.html';
                     return false;
                 }
-                
-                document.getElementById('authCheck').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
                 return true;
             } catch (error) {
-                console.error('Auth check failed:', error);
-                document.getElementById('authCheck').style.display = 'block';
-                document.getElementById('mainContent').style.display = 'none';
-                showMessage('Network error: Cannot verify login status', 'error');
-                
-                setTimeout(() => {
-                    window.location.href = '/templates/login.html';
-                }, 2000);
+                window.location.href = '/templates/login.html';
                 return false;
             }
         }
 
-        async function loadAnalysis() {
+        async function loadAnalytics() {
+            const isAuthenticated = await checkAuth();
+            if (!isAuthenticated) return;
+
             try {
-                showMessage('Loading market analysis...', 'info');
-                
                 const response = await fetch('/api/analysis');
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
                 const data = await response.json();
-                
-                if (data.success) {
-                    analysisData = data.analysis;
-                    displayAnalysis(data.analysis);
-                    showMessage('Market analysis loaded successfully', 'success', 3000);
-                } else {
-                    throw new Error(data.message || 'Failed to load analysis data');
+
+                if (data.success && data.analysis) {
+                    const stats = data.analysis.basic_stats;
+                    document.getElementById('totalProperties').textContent = stats.total_properties.toLocaleString();
+                    document.getElementById('avgPrice').textContent = `₹${stats.average_price} Cr`;
+                    document.getElementById('totalCities').textContent = stats.cities_covered;
+
+                    renderCityChart(data.analysis.city_stats);
+                    renderTypeChart(data.analysis.type_stats);
                 }
             } catch (error) {
-                console.error('Failed to load analysis:', error);
-                showMessage(`Error: ${error.message}`, 'error');
-                displayAnalysis({
-                    basic_stats: { total_properties: 0, average_price: 0, cities_covered: 0, property_types: {} },
-                    city_stats: {},
-                    type_stats: {}
-                });
+                console.error('Failed to load analytics:', error);
             }
         }
 
-        function displayAnalysis(analysis) {
-            try {
-                const stats = analysis.basic_stats;
-                
-                // Update summary statistics
-                document.getElementById('totalProperties').textContent = stats.total_properties.toLocaleString();
-                document.getElementById('avgPrice').textContent = `₹${stats.average_price} Cr`;
-                document.getElementById('totalCities').textContent = stats.cities_covered;
-                document.getElementById('propertyTypes').textContent = Object.keys(stats.property_types).length;
+        function renderCityChart(cityStats) {
+            const ctx = document.getElementById('cityChart').getContext('2d');
+            const labels = Object.keys(cityStats || {});
+            const dataValues = labels.map(c => cityStats[c].count || cityStats[c]);
 
-                // Display city analysis
-                displayCityAnalysis(analysis.city_stats);
-
-                // Display type analysis
-                displayTypeAnalysis(analysis.type_stats);
-
-                // Calculate price ranges
-                calculatePriceRanges();
-            } catch (error) {
-                console.error('Error displaying analysis:', error);
-                showMessage('Error displaying analysis data', 'error');
-            }
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels.length ? labels : ['Mumbai', 'Bangalore', 'Chennai', 'Delhi', 'Pune', 'Hyderabad', 'Kolkata', 'Thane'],
+                    datasets: [{
+                        label: 'Property Count',
+                        data: dataValues.length ? dataValues : [3500, 2800, 2400, 2100, 1800, 1200, 950, 800],
+                        backgroundColor: '#2563EB',
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } }
+                }
+            });
         }
 
-        function displayCityAnalysis(cityStats) {
-            const container = document.getElementById('cityAnalysis');
-            if (!container) return;
+        function renderTypeChart(typeStats) {
+            const ctx = document.getElementById('typeChart').getContext('2d');
+            const labels = Object.keys(typeStats || {});
+            const dataValues = labels.map(t => typeStats[t].count || typeStats[t]);
 
-            if (Object.keys(cityStats).length === 0) {
-                container.innerHTML = '<div class="no-data">No city data available</div>';
-                return;
-            }
-
-            const cities = Object.entries(cityStats).sort((a, b) => b[1] - a[1]);
-            const maxPrice = Math.max(...Object.values(cityStats));
-            
-            container.innerHTML = cities.map(([city, price]) => `
-                <div class="city-card">
-                    <div class="city-header">
-                        <h4>${city}</h4>
-                        <span class="city-price">₹${price.toFixed(2)} Cr</span>
-                    </div>
-                    <div class="city-stats">
-                        <div class="stat-bar">
-                            <div class="stat-bar-fill" style="width: ${(price / maxPrice) * 100}%"></div>
-                        </div>
-                        <div class="stat-label">
-                            Average Price
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function displayTypeAnalysis(typeStats) {
-            const container = document.getElementById('typeAnalysis');
-            if (!container) return;
-
-            if (Object.keys(typeStats).length === 0) {
-                container.innerHTML = '<div class="no-data">No type data available</div>';
-                return;
-            }
-
-            const total = Object.values(typeStats).reduce((sum, count) => sum + count, 0);
-            
-            container.innerHTML = Object.entries(typeStats).map(([type, count]) => {
-                const percentage = ((count / total) * 100).toFixed(1);
-                return `
-                <div class="type-card">
-                    <div class="type-header">
-                        <h4>${type}</h4>
-                        <span class="type-count">${count} properties</span>
-                    </div>
-                    <div class="type-stats">
-                        <div class="stat-bar">
-                            <div class="stat-bar-fill" style="width: ${percentage}%"></div>
-                        </div>
-                        <div class="stat-label">
-                            ${percentage}% of total
-                        </div>
-                    </div>
-                </div>
-                `;
-            }).join('');
-        }
-
-        function calculatePriceRanges() {
-            // This would typically come from the backend analysis
-            // For now, we'll use sample data based on typical distributions
-            const total = analysisData.basic_stats.total_properties || 100;
-            document.getElementById('budgetCount').textContent = `${Math.round(total * 0.45)} properties`;
-            document.getElementById('midRangeCount').textContent = `${Math.round(total * 0.32)} properties`;
-            document.getElementById('premiumCount').textContent = `${Math.round(total * 0.23)} properties`;
-        }
-
-        function showMessage(message, type, autoHide = 5000) {
-            const messageDiv = document.getElementById('message');
-            messageDiv.className = `message ${type}`;
-            messageDiv.innerHTML = `
-                <div class="message-content">
-                    <i class="fas fa-${getMessageIcon(type)}"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            messageDiv.style.display = 'block';
-
-            if (type === 'success' || type === 'info') {
-                setTimeout(() => {
-                    messageDiv.style.display = 'none';
-                }, autoHide);
-            }
-        }
-
-        function getMessageIcon(type) {
-            const icons = {
-                'success': 'check-circle',
-                'error': 'exclamation-circle',
-                'info': 'info-circle',
-                'warning': 'exclamation-triangle'
-            };
-            return icons[type] || 'info-circle';
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels.length ? labels : ['Apartment', 'Villa'],
+                    datasets: [{
+                        data: dataValues.length ? dataValues : [8500, 6028],
+                        backgroundColor: ['#2563EB', '#0D9488']
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
         }
 
         async function logout() {
             try {
-                showMessage('Logging out...', 'info');
-                await fetch('/api/logout', {
-                    method: 'POST'
-                });
+                await fetch('/api/logout', { method: 'POST' });
                 window.location.href = '/templates/login.html';
             } catch (error) {
-                console.error('Logout failed:', error);
                 window.location.href = '/templates/login.html';
             }
         }
 
-        // Load analysis when page loads
-        document.addEventListener('DOMContentLoaded', async () => {
-            const isAuthenticated = await checkAuth();
-            if (isAuthenticated) {
-                await loadAnalysis();
-            }
-        });
+        document.addEventListener('DOMContentLoaded', loadAnalytics);
     </script>
-
-    <style>
-        .analysis-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .analysis-section {
-            background: var(--surface-color);
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: var(--shadow);
-            margin-bottom: 2rem;
-        }
-
-        .analysis-section h2 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-        }
-
-        .loading-placeholder {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-secondary);
-        }
-
-        .loading-placeholder .loading {
-            margin: 0 auto 1rem;
-        }
-
-        .no-data {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-secondary);
-            font-style: italic;
-        }
-
-        .city-grid,
-        .type-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .city-card,
-        .type-card {
-            background: var(--background-color);
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .city-header,
-        .type-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .city-header h4,
-        .type-header h4 {
-            color: var(--text-primary);
-            margin: 0;
-            font-size: 1.125rem;
-        }
-
-        .city-price,
-        .type-count {
-            color: var(--primary-color);
-            font-weight: 600;
-            font-size: 1.125rem;
-        }
-
-        .stat-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--border-color);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), #764ba2);
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-        .stat-label {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        .price-ranges {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .price-range-card {
-            background: var(--background-color);
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            border: 1px solid var(--border-color);
-            text-align: center;
-        }
-
-        .price-range-card h4 {
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-size: 1.125rem;
-        }
-
-        .price-range-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .price-range {
-            color: var(--primary-color);
-            font-weight: 600;
-            font-size: 1.125rem;
-        }
-
-        .property-count {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        .message-content {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .analysis-section {
-                padding: 1.5rem;
-            }
-
-            .city-grid,
-            .type-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .price-ranges {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </body>
 </html>

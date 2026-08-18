@@ -171,14 +171,23 @@ class RealEstateBackend:
         try:
             current_dir = os.path.dirname(__file__)
             project_root = os.path.dirname(current_dir)
-            csv_path = os.path.join(project_root, 'sample_real_estate_data.csv')
+            root_dir = os.path.dirname(project_root)
             
-            print(f"📁 Looking for CSV at: {csv_path}")
+            candidate_paths = [
+                os.path.join(project_root, 'data', 'properties.csv'),
+                os.path.join(root_dir, 'data', 'properties.csv')
+            ]
             
-            if os.path.exists(csv_path):
-                self.properties_df = pd.read_csv(csv_path)
+            loaded_path = None
+            for path in candidate_paths:
+                if os.path.exists(path):
+                    loaded_path = path
+                    break
+            
+            if loaded_path:
+                print(f"📁 Loading properties CSV from: {loaded_path}")
+                self.properties_df = pd.read_csv(loaded_path)
                 print(f"✅ Successfully loaded {len(self.properties_df)} properties from CSV")
-                
                 self.ensure_required_columns()
             else:
                 print("🔄 CSV file not found, creating sample data...")
@@ -362,6 +371,36 @@ class RealEstateBackend:
             import traceback
             traceback.print_exc()
             return []
+
+    def get_property_by_id(self, property_id):
+        """Get property details by property ID"""
+        if self.properties_df is None or self.properties_df.empty:
+            return None
+        
+        try:
+            match = self.properties_df[self.properties_df['PropertyID'] == property_id]
+            if match.empty:
+                return None
+            
+            prop = match.iloc[0].to_dict()
+            
+            # Clean numeric and string values
+            prop['Price_Cr'] = float(prop.get('Price_Cr', 0)) if pd.notna(prop.get('Price_Cr')) else 0.0
+            prop['Area_sqft'] = int(prop.get('Area_sqft', 0)) if pd.notna(prop.get('Area_sqft')) else 0
+            prop['BHK'] = int(prop.get('BHK', 0)) if pd.notna(prop.get('BHK')) else 0
+            prop['Available'] = bool(prop.get('Available', True))
+            if 'Price_per_sqft' not in prop or pd.isna(prop['Price_per_sqft']):
+                if prop['Area_sqft'] > 0:
+                    prop['Price_per_sqft'] = round((prop['Price_Cr'] * 10000000) / prop['Area_sqft'], 2)
+                else:
+                    prop['Price_per_sqft'] = 0.0
+            else:
+                prop['Price_per_sqft'] = float(prop['Price_per_sqft'])
+                
+            return prop
+        except Exception as e:
+            print(f"❌ Error fetching property {property_id}: {e}")
+            return None
     
     def get_property_cities(self):
         """Get list of available cities"""
@@ -436,16 +475,21 @@ class RealEstateBackend:
         try:
             current_dir = os.path.dirname(__file__)
             project_root = os.path.dirname(current_dir)
-            csv_path = os.path.join(project_root, 'sample_real_estate_data.csv')
+            root_dir = os.path.dirname(project_root)
             
-            if os.path.exists(csv_path):
-                # Read the CSV
-                df = pd.read_csv(csv_path)
-                # Update availability
-                df.loc[df['PropertyID'] == property_id, 'Available'] = available
-                # Save back to CSV
-                df.to_csv(csv_path, index=False)
-                print(f"✅ Updated property {property_id} availability to {available} in CSV")
+            candidate_paths = [
+                os.path.join(project_root, 'data', 'properties.csv'),
+                os.path.join(root_dir, 'data', 'properties.csv'),
+                os.path.join(project_root, 'sample_real_estate_data.csv')
+            ]
+            
+            for csv_path in candidate_paths:
+                if os.path.exists(csv_path):
+                    df = pd.read_csv(csv_path)
+                    df.loc[df['PropertyID'] == property_id, 'Available'] = available
+                    df.to_csv(csv_path, index=False)
+                    print(f"✅ Updated property {property_id} availability to {available} in CSV: {csv_path}")
+                    break
         except Exception as e:
             print(f"❌ Error updating CSV: {e}")
     

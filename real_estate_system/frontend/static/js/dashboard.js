@@ -73,10 +73,32 @@ class Dashboard {
             return;
         }
 
+        function getPropertyImage(property) {
+            if (!property) return '/static/images/apartment_1.jpg';
+            const type = (property.Type || '').toLowerCase();
+            const title = (property.Title || '').toLowerCase();
+            const bhk = parseInt(property.BHK || 0);
+            const propId = property.PropertyID || '';
+            
+            let hash = 0;
+            for (let i = 0; i < propId.length; i++) {
+                hash = (hash << 5) - hash + propId.charCodeAt(i);
+                hash |= 0;
+            }
+            const altIndex = Math.abs(hash) % 2;
+
+            if (type.includes('villa') || title.includes('house') || title.includes('villa')) {
+                return altIndex === 0 ? '/static/images/villa_1.jpg' : '/static/images/villa_2.jpg';
+            }
+            if (bhk === 2 || bhk === 1) {
+                return altIndex === 0 ? '/static/images/bhk2_1.jpg' : '/static/images/apartment_1.jpg';
+            }
+            return altIndex === 0 ? '/static/images/apartment_1.jpg' : '/static/images/apartment_2.jpg';
+        }
+
         container.innerHTML = properties.slice(0, 6).map(property => `
             <div class="property-card">
-                <div class="property-image">
-                    <i class="fas fa-home"></i>
+                <div class="property-image" style="background-image: url('${getPropertyImage(property)}');">
                 </div>
                 <div class="property-content">
                     <h3 class="property-title">${property.Title}</h3>
@@ -116,9 +138,8 @@ class Dashboard {
 
 // Property viewing function
 function viewProperty(propertyId) {
-    // Store property ID for the properties page
     sessionStorage.setItem('selectedProperty', propertyId);
-    window.location.href = '/templates/properties.html';
+    window.location.href = `/templates/property_detail.html?id=${encodeURIComponent(propertyId)}`;
 }
 
 // Initialize dashboard when DOM is loaded

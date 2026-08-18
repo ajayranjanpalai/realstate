@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details - RealEstate India</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+            background-color: #0A192F !important;
+            color: #FFFFFF !important;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(circle at 15% 20%, rgba(37, 99, 235, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(13, 148, 136, 0.15) 0%, transparent 45%),
+                linear-gradient(135deg, #040D1A 0%, #0A192F 50%, #061324 100%);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='%2338bdf8' stroke-width='0.4' stroke-opacity='0.12'%3E%3Cpath d='M50 50L20 20M0 0l80 80M0 80L80 0M30 10l40 40M10 30l40 40'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .detail-card {
+            background: #FFFFFF !important;
+            border-radius: 16px !important;
+            overflow: hidden !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25) !important;
+            color: #0F172A !important;
+            margin-bottom: 2.5rem !important;
+        }
+
+        .detail-hero-banner {
+            height: 320px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            padding: 2rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .detail-hero-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(15, 23, 42, 0.85) 100%);
+        }
+
+        .detail-hero-content {
+            position: relative;
+            z-index: 2;
+            color: #FFFFFF;
+        }
+
+        .detail-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .detail-location {
+            font-size: 1.05rem;
+            color: #CBD5E1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-body {
+            padding: 2rem 2.25rem;
+        }
+
+        .specs-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            background: #F8FAFC;
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            margin-bottom: 1.75rem;
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .spec-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: #DBEAFE;
+            color: #1D4ED8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+        }
+
+        .spec-val {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0F172A;
+        }
+
+        .spec-lbl {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #64748B;
+        }
+
+        .btn-book-action-large {
+            background: #2563EB !important;
+            color: #FFFFFF !important;
+            border: none !important;
+            padding: 0.85rem 2rem !important;
+            border-radius: 10px !important;
+            font-size: 1.1rem !important;
+            font-weight: 800 !important;
+            cursor: pointer !important;
+            display: inline-flex !items: center !gap: 0.5rem;
+            transition: all 0.2s ease !important;
+        }
+
+        .btn-book-action-large:hover { background: #1D4ED8 !important; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/templates/dashboard.html" class="nav-logo">
+                <i class="fas fa-home"></i>
+                <span>RealEstate India</span>
+            </a>
+            <div class="nav-menu">
+                <a href="/templates/dashboard.html" class="nav-link">Home</a>
+                <a href="/templates/properties.html" class="nav-link">Explore Properties</a>
+                <a href="/templates/bookings.html" class="nav-link">My Bookings</a>
+                <a href="/templates/analysis.html" class="nav-link">Analytics</a>
+                <a href="/templates/profile.html" class="nav-link">Profile</a>
+            </div>
+            <div class="nav-right">
+                <button class="btn-nav-logout" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div style="margin-bottom: 1.5rem;">
+            <a href="/templates/properties.html" style="color: #38BDF8; font-weight: 700; text-decoration: none; font-size: 0.95rem;">
+                <i class="fas fa-arrow-left"></i> Back to Explore Properties
+            </a>
+        </div>
+
+        <div class="detail-card">
+            <div id="detailHero" class="detail-hero-banner" style="background-image: url('/static/images/apartment_1.jpg');">
+                <div class="detail-hero-overlay"></div>
+                <div class="detail-hero-content">
+                    <h1 id="propTitle" class="detail-title">Modern 3 BHK Flat</h1>
+                    <div class="detail-location">
+                        <i class="fas fa-map-marker-alt" style="color: #EF4444;"></i>
+                        <span id="propLocation">Mumbai, Maharashtra</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-body">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <div>
+                        <span style="font-size: 0.9rem; color: #64748B; font-weight: 600;">Property Price</span>
+                        <div id="propPrice" style="font-size: 2.2rem; font-weight: 800; color: #0F172A;">₹1.99 Cr</div>
+                    </div>
+                    <button class="btn-book-action-large" onclick="bookCurrentProperty()">
+                        <i class="fas fa-calendar-check"></i> Book Now
+                    </button>
+                </div>
+
+                <div class="specs-grid-4">
+                    <div class="spec-item">
+                        <div class="spec-icon-box"><i class="fas fa-vector-square"></i></div>
+                        <div>
+                            <div id="propArea" class="spec-val">1600 sqft</div>
+                            <div class="spec-lbl">Area Size</div>
+                        </div>
+                    </div>
+
+                    <div class="spec-item">
+                        <div class="spec-icon-box"><i class="fas fa-bed"></i></div>
+                        <div>
+                            <div id="propBHK" class="spec-val">3 BHK</div>
+                            <div class="spec-lbl">Bedrooms</div>
+                        </div>
+                    </div>
+
+                    <div class="spec-item">
+                        <div class="spec-icon-box"><i class="fas fa-bath"></i></div>
+                        <div>
+                            <div id="propBaths" class="spec-val">3 Baths</div>
+                            <div class="spec-lbl">Bathrooms</div>
+                        </div>
+                    </div>
+
+                    <div class="spec-item">
+                        <div class="spec-icon-box"><i class="fas fa-couch"></i></div>
+                        <div>
+                            <div id="propFurnishing" class="spec-val">Semi-Furnished</div>
+                            <div class="spec-lbl">Status</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #0F172A; margin-bottom: 0.75rem;">Description</h3>
+                <p id="propDesc" style="color: #475569; font-size: 1rem; line-height: 1.7;">
+                    Experience luxury living in this beautifully designed modern property located in a prime residential hub. Features world-class amenities, excellent connectivity, and stunning city views.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                RealEstate India | &copy; 2026 | Jatni, Odisha
+            </div>
+            <div class="footer-right">
+                <a href="/templates/dashboard.html">Home</a>
+                <a href="/templates/properties.html">Links</a>
+                <a href="/templates/analysis.html">Cambra</a>
+                <a href="/templates/profile.html">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        let currentPropertyId = null;
+
+        function getPropertyImage(property) {
+            if (!property) return '/static/images/apartment_1.jpg';
+            const type = (property.Type || '').toLowerCase();
+            const title = (property.Title || '').toLowerCase();
+            const bhk = parseInt(property.BHK || 0);
+            const propId = property.PropertyID || '';
+            
+            let hash = 0;
+            for (let i = 0; i < propId.length; i++) {
+                hash = (hash << 5) - hash + propId.charCodeAt(i);
+                hash |= 0;
+            }
+            const altIndex = Math.abs(hash) % 2;
+
+            if (type.includes('villa') || title.includes('house') || title.includes('villa')) {
+                return altIndex === 0 ? '/static/images/villa_1.jpg' : '/static/images/villa_2.jpg';
+            }
+            if (bhk === 2 || bhk === 1) {
+                return altIndex === 0 ? '/static/images/bhk2_1.jpg' : '/static/images/apartment_1.jpg';
+            }
+            return altIndex === 0 ? '/static/images/apartment_1.jpg' : '/static/images/apartment_2.jpg';
+        }
+
+        async function loadPropertyDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            currentPropertyId = urlParams.get('id') || sessionStorage.getItem('selectedProperty');
+
+            if (!currentPropertyId) {
+                window.location.href = '/templates/properties.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/properties/${currentPropertyId}`);
+                const data = await response.json();
+
+                if (data.success && data.property) {
+                    const p = data.property;
+                    document.getElementById('propTitle').textContent = p.Title;
+                    document.getElementById('propLocation').textContent = p.Location || p.City;
+                    document.getElementById('propPrice').textContent = `₹${p.Price_Cr} Cr`;
+                    document.getElementById('propArea').textContent = `${p.Area_sqft} sqft`;
+                    document.getElementById('propBHK').textContent = `${p.BHK} BHK`;
+                    document.getElementById('propBaths').textContent = `${p.Baths || 3} Baths`;
+                    document.getElementById('propFurnishing').textContent = p.Furnishing || 'Semi-Furnished';
+                    document.getElementById('detailHero').style.backgroundImage = `url('${getPropertyImage(p)}')`;
+                }
+            } catch (err) {
+                console.error('Failed to load detail:', err);
+            }
+        }
+
+        async function bookCurrentProperty() {
+            if (!currentPropertyId) return;
+            try {
+                const response = await fetch('/api/book', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ property_id: currentPropertyId })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Booking successful!');
+                    window.location.href = '/templates/bookings.html';
+                } else {
+                    alert('Booking failed: ' + result.message);
+                }
+            } catch (err) {
+                alert('Booking error');
+            }
+        }
+
+        async function logout() {
+            try {
+                await fetch('/api/logout', { method: 'POST' });
+                window.location.href = '/templates/login.html';
+            } catch (error) {
+                window.location.href = '/templates/login.html';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadPropertyDetails);
+    </script>
+</body>
+</html>
