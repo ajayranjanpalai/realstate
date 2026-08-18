@@ -751,7 +751,7 @@
                         <div class="property-image" style="background-image: url('${getPropertyImage(prop)}');">
                             ${isClosed ? `
                                 <div class="property-badges-overlay">
-                                    <span class="badge-closed"><i class="fas fa-lock"></i> CLOSED</span>
+                                    <span class="badge-closed"><i class="fas fa-bookmark"></i> BOOKED</span>
                                 </div>
                             ` : ''}
                         </div>
@@ -774,7 +774,7 @@
                             <div class="card-actions-row">
                                 ${isClosed ? `
                                     <button class="btn-card-book" disabled style="background: #64748B !important; cursor: not-allowed !important; opacity: 0.85;">
-                                        <i class="fas fa-lock"></i> Closed
+                                        <i class="fas fa-bookmark"></i> Booked
                                     </button>
                                 ` : `
                                     <button class="btn-card-book" onclick="bookProperty('${prop.PropertyID}')">
