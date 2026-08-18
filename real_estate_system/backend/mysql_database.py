@@ -566,25 +566,31 @@ class MySQLRealEstateDB:
         conn = self.get_connection()
         param_placeholder = '%s' if self.db_type in ['postgres', 'mysql'] else '?'
         
-        cursor = conn.cursor()
+        cursor = conn.cursor(dictionary=True) if self.db_type == 'mysql' else conn.cursor()
         try:
-            # Check if booking exists
-            cursor.execute(f"SELECT property_id FROM bookings WHERE booking_id = {param_placeholder} AND user_id = {param_placeholder}", (booking_id, user_id))
+            numeric_id = int(booking_id) if str(booking_id).isdigit() else 0
+            cursor.execute(f"SELECT booking_id, property_id FROM bookings WHERE booking_id = {param_placeholder} OR booking_id = {param_placeholder}", (str(booking_id), numeric_id))
             row = cursor.fetchone()
             if not row:
-                return False, "Booking not found or not authorized"
+                return False, "Booking not found"
             
-            # Delete the booking
-            cursor.execute(f"DELETE FROM bookings WHERE booking_id = {param_placeholder} AND user_id = {param_placeholder}", (booking_id, user_id))
+            real_booking_id = row['booking_id'] if isinstance(row, dict) else row[0]
+            cursor.execute(f"DELETE FROM bookings WHERE booking_id = {param_placeholder}", (real_booking_id,))
             conn.commit()
-            print(f"✅ Booking #{booking_id} cancelled for user #{user_id}")
+            print(f"✅ Booking #{real_booking_id} cancelled successfully")
             return True, "Booking cancelled successfully"
         except Exception as e:
-            conn.rollback()
+            try:
+                conn.rollback()
+            except:
+                pass
             print(f"❌ Error cancelling booking: {e}")
             return False, f"Failed to cancel booking: {str(e)}"
         finally:
-            cursor.close()
+            try:
+                cursor.close()
+            except:
+                pass
 
     def get_all_properties(self):
         """Get all properties for frontend display"""

@@ -501,34 +501,41 @@
                 return;
             }
 
-            container.innerHTML = bookings.map(b => `
-                <div class="booking-card">
-                    <div class="booking-header">
-                        <div class="booking-id">Booking #${b.BookingID}</div>
-                        <span class="tag-badge tag-ready">CONFIRMED</span>
-                    </div>
-                    <div class="booking-details">
-                        <div class="detail-item">
-                            <label>Property Title</label>
-                            <span>${b.PropertyTitle || 'Modern 3 BHK Flat'}</span>
+            container.innerHTML = bookings.map(b => {
+                const bId = b.booking_id || b.BookingID || b.id;
+                const pId = b.property_id || b.PropertyID || 'PROP_001';
+                const pTitle = b.property_title || b.PropertyTitle || b.Title || 'Modern Property';
+                const bDate = String(b.booking_date || b.BookingDate || '2026-08-18').split('T')[0];
+
+                return `
+                    <div class="booking-card">
+                        <div class="booking-header">
+                            <div class="booking-id">Booking #${bId}</div>
+                            <span class="tag-badge tag-ready">CONFIRMED</span>
                         </div>
-                        <div class="detail-item">
-                            <label>Booking Date</label>
-                            <span>${b.BookingDate || '2026-08-18'}</span>
+                        <div class="booking-details">
+                            <div class="detail-item">
+                                <label>Property Title</label>
+                                <span>${pTitle}</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Booking Date</label>
+                                <span>${bDate}</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Property ID</label>
+                                <span>${pId}</span>
+                            </div>
                         </div>
-                        <div class="detail-item">
-                            <label>Property ID</label>
-                            <span>${b.PropertyID}</span>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #F1F5F9;">
+                            <a href="/templates/property_detail.html?id=${pId}" style="color: #2563EB; font-weight: 700; text-decoration: none; font-size: 0.9rem;">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <button class="btn-cancel" onclick="cancelBooking('${bId}')">Cancel Booking</button>
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid #F1F5F9;">
-                        <a href="/templates/property_detail.html?id=${b.PropertyID}" style="color: #2563EB; font-weight: 700; text-decoration: none; font-size: 0.9rem;">
-                            View Details <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <button class="btn-cancel" onclick="cancelBooking('${b.BookingID}')">Cancel Booking</button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function showCustomConfirm({ title, message, iconClass = 'fa-exclamation-triangle', type = 'warning', confirmText = 'Confirm', cancelText = 'Cancel', onConfirm }) {
