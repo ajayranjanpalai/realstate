@@ -289,6 +289,22 @@
             left: 0.85rem;
             display: flex;
             gap: 0.35rem;
+            z-index: 2;
+        }
+
+        .badge-closed {
+            background: #EF4444 !important;
+            color: #FFFFFF !important;
+            font-size: 0.75rem !important;
+            font-weight: 800 !important;
+            padding: 0.35rem 0.75rem !important;
+            border-radius: 6px !important;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            text-transform: uppercase;
         }
 
         .tag-badge {
@@ -728,9 +744,17 @@
             }
 
             listContainer.innerHTML = properties.map((prop, idx) => {
+                const isClosed = prop.Available === false || prop.Available === 0 || String(prop.Available).toLowerCase() === 'false' || prop.Available === '0';
+                
                 return `
                     <div class="property-card" id="property-${prop.PropertyID}">
-                        <div class="property-image" style="background-image: url('${getPropertyImage(prop)}');"></div>
+                        <div class="property-image" style="background-image: url('${getPropertyImage(prop)}');">
+                            ${isClosed ? `
+                                <div class="property-badges-overlay">
+                                    <span class="badge-closed"><i class="fas fa-lock"></i> CLOSED</span>
+                                </div>
+                            ` : ''}
+                        </div>
                         <div class="property-content">
                             <h3 class="property-title">${prop.Title}</h3>
                             <div class="property-location">
@@ -748,9 +772,15 @@
                             <div class="property-price-centered">₹${prop.Price_Cr} Crores</div>
 
                             <div class="card-actions-row">
-                                <button class="btn-card-book" onclick="bookProperty('${prop.PropertyID}')">
-                                    <i class="fas fa-calendar-check"></i> Book Now
-                                </button>
+                                ${isClosed ? `
+                                    <button class="btn-card-book" disabled style="background: #64748B !important; cursor: not-allowed !important; opacity: 0.85;">
+                                        <i class="fas fa-lock"></i> Closed
+                                    </button>
+                                ` : `
+                                    <button class="btn-card-book" onclick="bookProperty('${prop.PropertyID}')">
+                                        <i class="fas fa-calendar-check"></i> Book Now
+                                    </button>
+                                `}
                                 <a href="/templates/property_detail.html?id=${prop.PropertyID}" class="btn-card-details-grey">
                                     Details
                                 </a>

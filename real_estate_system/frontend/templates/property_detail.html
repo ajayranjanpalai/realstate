@@ -144,6 +144,108 @@
         }
 
         .btn-book-action-large:hover { background: #1D4ED8 !important; }
+
+        /* Professional Custom Modal Popup Styling */
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(4, 13, 26, 0.78) !important;
+            backdrop-filter: blur(8px) !important;
+            z-index: 99999 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInOverlay 0.25s ease-out;
+        }
+
+        .custom-modal-box {
+            background: #FFFFFF !important;
+            border-radius: 20px !important;
+            padding: 2.25rem 2rem !important;
+            width: 90% !important;
+            max-width: 420px !important;
+            text-align: center !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35) !important;
+            color: #0F172A !important;
+            animation: modalPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalPopIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(15px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes fadeInOverlay {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .modal-icon-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin: 0 auto 1.25rem auto;
+        }
+
+        .modal-icon-warning { background: #FEE2E2 !important; color: #EF4444 !important; }
+        .modal-icon-success { background: #DCFCE7 !important; color: #16A34A !important; }
+        .modal-icon-info { background: #DBEAFE !important; color: #1D4ED8 !important; }
+
+        .modal-title {
+            font-size: 1.35rem !important;
+            font-weight: 800 !important;
+            color: #0F172A !important;
+            margin: 0 0 0.5rem 0 !important;
+            letter-spacing: -0.3px;
+        }
+
+        .modal-message {
+            font-size: 0.95rem !important;
+            font-weight: 600 !important;
+            color: #64748B !important;
+            margin: 0 0 1.75rem 0 !important;
+            line-height: 1.5;
+        }
+
+        .modal-actions-flex {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .btn-modal-primary {
+            flex: 1;
+            padding: 0.75rem 1.25rem;
+            background: #2563EB !important;
+            color: #FFFFFF !important;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.925rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-modal-primary:hover { background: #1D4ED8 !important; }
+
+        .btn-modal-secondary {
+            flex: 1;
+            padding: 0.75rem 1.25rem;
+            background: #F1F5F9 !important;
+            color: #475569 !important;
+            border: 1px solid #CBD5E1;
+            border-radius: 10px;
+            font-size: 0.925rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-modal-secondary:hover { background: #E2E8F0 !important; }
     </style>
 </head>
 <body>
@@ -191,7 +293,7 @@
                         <span style="font-size: 0.9rem; color: #64748B; font-weight: 600;">Property Price</span>
                         <div id="propPrice" style="font-size: 2.2rem; font-weight: 800; color: #0F172A;">₹1.99 Cr</div>
                     </div>
-                    <button class="btn-book-action-large" onclick="bookCurrentProperty()">
+                    <button id="propBookBtn" class="btn-book-action-large" onclick="bookCurrentProperty()">
                         <i class="fas fa-calendar-check"></i> Book Now
                     </button>
                 </div>
@@ -279,6 +381,63 @@
             return altIndex === 0 ? '/static/images/apartment_1.jpg' : '/static/images/apartment_2.jpg';
         }
 
+        function showCustomConfirm({ title, message, iconClass = 'fa-home', type = 'info', confirmText = 'Confirm', cancelText = 'Cancel', onConfirm }) {
+            const overlay = document.getElementById('customModal');
+            const iconContainer = document.getElementById('modalIconContainer');
+            const iconEl = document.getElementById('modalIcon');
+            const titleEl = document.getElementById('modalTitle');
+            const messageEl = document.getElementById('modalMessage');
+            const btnPrimary = document.getElementById('modalBtnPrimary');
+            const btnSecondary = document.getElementById('modalBtnSecondary');
+
+            titleEl.textContent = title;
+            messageEl.textContent = message;
+            iconEl.className = 'fas ' + iconClass;
+
+            if (type === 'warning') {
+                iconContainer.className = 'modal-icon-circle modal-icon-warning';
+                btnPrimary.style.background = '#EF4444';
+            } else if (type === 'success') {
+                iconContainer.className = 'modal-icon-circle modal-icon-success';
+                btnPrimary.style.background = '#16A34A';
+            } else {
+                iconContainer.className = 'modal-icon-circle modal-icon-info';
+                btnPrimary.style.background = '#2563EB';
+            }
+
+            btnPrimary.textContent = confirmText;
+            btnSecondary.textContent = cancelText;
+
+            if (!cancelText) {
+                btnSecondary.style.display = 'none';
+            } else {
+                btnSecondary.style.display = 'block';
+            }
+
+            overlay.style.display = 'flex';
+
+            btnPrimary.onclick = async () => {
+                overlay.style.display = 'none';
+                if (onConfirm) await onConfirm();
+            };
+
+            btnSecondary.onclick = () => {
+                overlay.style.display = 'none';
+            };
+        }
+
+        function showCustomAlert(title, message, type = 'success', onOK = null) {
+            showCustomConfirm({
+                title,
+                message,
+                iconClass: type === 'success' ? 'fa-check-circle' : 'fa-times-circle',
+                type: type === 'success' ? 'success' : 'warning',
+                confirmText: 'OK',
+                cancelText: '',
+                onConfirm: onOK
+            });
+        }
+
         async function loadPropertyDetails() {
             const urlParams = new URLSearchParams(window.location.search);
             currentPropertyId = urlParams.get('id') || sessionStorage.getItem('selectedProperty');
@@ -302,30 +461,51 @@
                     document.getElementById('propBaths').textContent = `${p.Baths || 3} Baths`;
                     document.getElementById('propFurnishing').textContent = p.Furnishing || 'Semi-Furnished';
                     document.getElementById('detailHero').style.backgroundImage = `url('${getPropertyImage(p)}')`;
+
+                    const isClosed = p.Available === false || p.Available === 0 || String(p.Available).toLowerCase() === 'false' || p.Available === '0';
+                    const bookBtn = document.getElementById('propBookBtn');
+                    if (isClosed && bookBtn) {
+                        bookBtn.disabled = true;
+                        bookBtn.style.background = '#64748B';
+                        bookBtn.style.cursor = 'not-allowed';
+                        bookBtn.style.opacity = '0.85';
+                        bookBtn.innerHTML = '<i class="fas fa-lock"></i> Property Closed';
+                    }
                 }
             } catch (err) {
                 console.error('Failed to load detail:', err);
             }
         }
 
-        async function bookCurrentProperty() {
+        function bookCurrentProperty() {
             if (!currentPropertyId) return;
-            try {
-                const response = await fetch('/api/book', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ property_id: currentPropertyId })
-                });
-                const result = await response.json();
-                if (result.success) {
-                    alert('Booking successful!');
-                    window.location.href = '/templates/bookings.html';
-                } else {
-                    alert('Booking failed: ' + result.message);
+            showCustomConfirm({
+                title: 'Confirm Booking?',
+                message: `Are you sure you want to book this property?`,
+                iconClass: 'fa-home',
+                type: 'info',
+                confirmText: 'Yes, Book Now',
+                cancelText: 'Cancel',
+                onConfirm: async () => {
+                    try {
+                        const response = await fetch('/api/book', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ property_id: currentPropertyId })
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                            showCustomAlert('Booking Successful!', 'Your booking has been registered.', 'success', () => {
+                                window.location.href = '/templates/bookings.html';
+                            });
+                        } else {
+                            showCustomAlert('Booking Failed', result.message || 'Property is not available.', 'warning');
+                        }
+                    } catch (err) {
+                        showCustomAlert('Booking Error', 'An unexpected error occurred. Please try again.', 'warning');
+                    }
                 }
-            } catch (err) {
-                alert('Booking error');
-            }
+            });
         }
 
         async function logout() {
@@ -339,5 +519,20 @@
 
         document.addEventListener('DOMContentLoaded', loadPropertyDetails);
     </script>
+
+    <!-- Professional Custom Modal Popup Overlay -->
+    <div id="customModal" class="custom-modal-overlay" style="display: none;">
+        <div class="custom-modal-box">
+            <div id="modalIconContainer" class="modal-icon-circle modal-icon-info">
+                <i id="modalIcon" class="fas fa-home"></i>
+            </div>
+            <h3 id="modalTitle" class="modal-title">Confirm Action</h3>
+            <p id="modalMessage" class="modal-message">Are you sure you want to perform this action?</p>
+            <div id="modalActions" class="modal-actions-flex">
+                <button id="modalBtnSecondary" class="btn-modal-secondary">Cancel</button>
+                <button id="modalBtnPrimary" class="btn-modal-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
