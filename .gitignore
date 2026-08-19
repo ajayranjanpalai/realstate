@@ -1,10 +1,11 @@
-# Python
+# Python bytecode & cache
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-env/
+
+# Build & packaging
 build/
 develop-eggs/
 dist/
@@ -24,20 +25,34 @@ wheels/
 # Virtual environments
 venv/
 ENV/
+env/
 env.bak/
 venv.bak/
+.venv/
 
-# Environment variables
+# Environment variables & Secret Keys
 .env
-.env.local
+.env.*
+!.env.example
 
-# IDEs & Editors
+# Databases & Local SQLite files
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
+real_estate_system/data/*.db
+
+# Logs and runtime outputs
+*.log
+real_estate_system/output/charts/*.png
+real_estate_system/output/receipts/*.pdf
+real_estate_system/output/receipts/*.txt
+real_estate_system/output/data/*.csv
+
+# IDEs & OS junk
 .vscode/
 .idea/
 *.swp
 *.swo
 .DS_Store
-
-# Temporary files & output logs
-*.log
-real_estate_system/output/charts/*.png
+Thumbs.db

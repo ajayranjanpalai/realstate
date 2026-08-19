@@ -33,7 +33,7 @@ class MySQLRealEstateDB:
         self.database_url = os.environ.get('DATABASE_URL') or os.environ.get('NEON_DATABASE_URL') or os.environ.get('POSTGRES_URL')
         self.host = host or os.environ.get('MYSQL_HOST', 'localhost')
         self.user = user or os.environ.get('MYSQL_USER', 'root')
-        self.password = password or os.environ.get('MYSQL_PASSWORD', 'Ajay@2006')
+        self.password = password or os.environ.get('MYSQL_PASSWORD', '')
         self.database = database or os.environ.get('MYSQL_DATABASE', 'real_estate_db')
         self.port = port or int(os.environ.get('MYSQL_PORT', 3306))
         

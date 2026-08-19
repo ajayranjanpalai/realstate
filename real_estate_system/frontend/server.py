@@ -500,8 +500,9 @@ def run_server(port=None):
     socketserver.TCPServer.allow_reuse_address = True
     handler = RealEstateHandler
     with socketserver.TCPServer(("", port), handler) as httpd:
-        print(f"🚀 Real Estate System running on http://0.0.0.0:{port}")
-        print("📱 Access the application in your web browser")
+        print(f"🚀 Real Estate System running on http://127.0.0.1:{port}")
+        print(f"🔗 Access URL: http://localhost:{port}")
+        print("📱 Open http://127.0.0.1:{port} or http://localhost:{port} in your web browser")
         print("⏹️  Press Ctrl+C to stop the server")
         print("🔐 Session management: ENABLED")
         print("🔄 API endpoints: READY")
